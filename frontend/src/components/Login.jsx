@@ -15,7 +15,7 @@ export default function Login() {
    useEffect(() => {
     if ( localStorage.getItem('access_token')) {
         
-        navigate('/Home')
+        navigate('/home')
       }
    }, []);
   
@@ -47,7 +47,7 @@ export default function Login() {
        .then(data => {
           console.log(data.access_token)
           localStorage.setItem('access_token', data.access_token);
-            navigate("/Home");
+            navigate("/home");
         
         })
        .catch(err => console.log(err))

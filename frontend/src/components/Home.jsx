@@ -96,7 +96,7 @@ export default function Home() {
     }
     
     return (
-        <div>
+        <div className="mb-5">
             <hr />
             <CreateCard setIsCrrated={setIsCrrated} />
             <hr />

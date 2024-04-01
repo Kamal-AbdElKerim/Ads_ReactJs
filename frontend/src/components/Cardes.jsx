@@ -102,23 +102,25 @@ const Cardes = ({ card, onDelete, currentUser, setIsCrrated }) => {
           </form>
         ) : (
           <div>
-            <h5 className="card-title">Company: {card.company}</h5>
-            <p className="card-text">Title: {card.title}</p>
             <div className=' d-flex  justify-content-between '>
-              {currentUser && card.user_id === currentUser.id && (
-                <div>
-                  <button className="btn btn-danger me-2" onClick={handleDelete}>
-                    Delete
-                  </button>
-                  <button className="btn btn-primary" onClick={handleUpdate}>
-                    Update
-                  </button>
-                </div>
-              )}
-              <h2 onClick={handleFavoris} className='icon_Favoris'>
-                <i className={!card.favorited ? 'fa-regular fa-heart' : 'fa-solid fa-heart'}></i>
+            <h5 className="card-title">Company: {card.company}</h5>
+            <h2 onClick={handleFavoris} className='icon_Favoris'>
+              <i className={!card.favorited ? 'fa-regular fa-heart' : 'fa-solid fa-heart'} style={{ color: '#f40606' }}></i>
               </h2>
             </div>
+            <p className="card-text">Title: {card.title}</p>
+              {currentUser && card.user_id === currentUser.id && (
+                <div>
+                    <button className="btn btn-primary me-2" onClick={handleUpdate}>
+                    Update
+                  </button>
+                  <button className="btn btn-danger " onClick={handleDelete}>
+                    Delete
+                  </button>
+                
+                </div>
+              )}
+          
           </div>
         )}
       </div>
