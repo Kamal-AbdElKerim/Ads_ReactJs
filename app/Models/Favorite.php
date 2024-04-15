@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Favorite extends Model
+class favorite extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'business_card_id'];
 
-    public function user()
-    {
+    protected $fillable = [
+        'UserID',
+        'AdID',
+    ];
+
+    public function users(){
         return $this->belongsTo(User::class);
     }
 
-    public function businessCard()
-    {
-        return $this->belongsTo(BusinessCard::class);
+    public function ads(){
+        return $this->belongsTo(ad::class,'AdID');
     }
 }

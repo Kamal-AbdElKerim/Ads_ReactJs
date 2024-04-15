@@ -1,10 +1,8 @@
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import './App.css';
 import { BrowserRouter, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Routes ,Route} from 'react-router-dom';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register/Register';
+
 
 import { router } from "./router/index";
 
