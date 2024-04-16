@@ -27,7 +27,7 @@ use App\Http\Controllers\BusinessCardController;
 
 
     Route::get('getAllAds', [AdsController::class, 'getAllAds']);
-    Route::post('SinglPage', [AdsController::class, 'SinglPage']);
+    Route::get('SinglPage/{id}', [AdsController::class, 'SinglPage']);
     
     
     Route::get('getTagsByCategory/{category}', [TagsController::class, 'getTagsByCategory']);
@@ -45,13 +45,16 @@ use App\Http\Controllers\BusinessCardController;
 
    
             // Route to fetch ads
-        Route::get('/my-ads', [favoriteController::class, 'index'])->name('my-ads.index');
+        Route::get('/myAds/{status}', [AdsController::class, 'myAds']);
 
         // Route to delete an ad
-        Route::delete('/my-ads/{id}', [favoriteController::class, 'delete'])->name('my-ads.delete');
+        Route::get('/deleteAds/{id}', [AdsController::class, 'deleteAds']);
+
+
+        Route::post('/updateAds/{id}', [AdsController::class, 'updateAds']);
 
         // Route to update an ad
-        Route::post('/my-ads/{id}', [favoriteController::class, 'update'])->name('my-ads.update');
+        // Route::post('/my-ads/{id}', [favoriteController::class, 'update'])->name('my-ads.update');
 
    
 

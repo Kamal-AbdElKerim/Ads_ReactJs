@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import './AddAds.css'
 import axios from "axios";
 import { Api, getAllAds, getTagsByCategory, storeAds, user } from "../../../Api/api";
+import Swal from 'sweetalert2'
 
 export default function AddAds() {
       // const [title, setTitle] = useState('');
@@ -19,6 +20,7 @@ export default function AddAds() {
   const [num_categories, setnum_categories] = useState([]);
   const [num_users, setnum_users] = useState([]);
   const [Tags, setTags] = useState([]);
+  const [Years, setYears] = useState([]);
 
   const getTags = ()=> {
             axios.get(`${Api}/${getTagsByCategory}/${Category.current.value}`)
@@ -67,6 +69,8 @@ export default function AddAds() {
           setnum_ADS(response.data.num_ADS)
           setnum_categories(response.data.num_categories)
           setnum_users(response.data.num_users)
+          setYears(response.data.years.years )
+          console.log('years',response.data.years)
         })
         .catch(function (error) {
           // handle error
@@ -118,7 +122,8 @@ export default function AddAds() {
       newImageUrls.push({ file, url });
     }
 
-    setSelectedFiles(files);
+    setSelectedFiles([...selectedFiles, ...files]);
+    console.log('selectedFiles',selectedFiles)
 
     setImageUrls(newImageUrls);
 
@@ -127,8 +132,15 @@ export default function AddAds() {
 
   const removeImage = (index) => {
     const newImageUrls = [...imageUrls];
+    const removedFile = newImageUrls[index].file;
+
+    // Remove the corresponding file from selectedFiles
+    const newSelectedFiles = selectedFiles.filter((file) => file !== removedFile);
+
+    // Update state to remove the image URL and corresponding file
     newImageUrls.splice(index, 1);
     setImageUrls(newImageUrls);
+    setSelectedFiles(newSelectedFiles);
   };
 
   const step1 = async (e) => {
@@ -189,12 +201,7 @@ export default function AddAds() {
     if (Carburant.current.value === "") {
         errorsObject.Carburant = 'Carburant is required'; 
     }
-    // if (City.current.value === "") {
-    //     errorsObject.City = 'City is required'; 
-    // }
-    // if (Address.current.value === "") {
-    //     errorsObject.Address = 'Address is required'; 
-    // }
+ 
   
     console.log(errorsObject)
     if (Object.keys(errorsObject).length == 0) {
@@ -231,41 +238,92 @@ export default function AddAds() {
            
         }
 
-
+        const clearInputs = () => {
+            title.current.value = '';
+            price.current.value = '';
+            Type_price.current.value = '';
+            Description.current.value = '';
+        
+            Address.current.value = '';
+          };
 
         const SubmitAds = async () => {
+            setIsLoading(true);
+
+            let errorsObject = {};
+
+            if (City.current.value === "") {
+                errorsObject.City = 'City is required'; 
+            }
+            if (Address.current.value === "") {
+                errorsObject.Address = 'Address is required'; 
+            }
+            setError(errorsObject)
+            setTimeout(() => {
+                setIsLoading(false);
+               
+            }, 1000);
+
+           if (City.current.value !== "" && Address.current.value !== "") {
+
             const formData = new FormData();
-    formData.append('title', title.current.value);
-    formData.append('Category', Category.current.value);
-    formData.append('price', price.current.value);
-    formData.append('Type_price', Type_price.current.value);
-    formData.append('Description', Description.current.value);
-    formData.append('Condition', Condition.current.value);
-    formData.append('Model', Model.current.value);
-    formData.append('Puissance', Puissance.current.value);
-    formData.append('TypeCar', Carburant.current.value);
-    formData.append('City', City.current.value);
-    formData.append('Location', Address.current.value);
+            formData.append('title', title.current.value);
+            formData.append('Category', Category.current.value);
+            formData.append('price', price.current.value);
+            formData.append('Type_price', Type_price.current.value);
+            formData.append('Description', Description.current.value);
+            formData.append('Condition', Condition.current.value);
+            formData.append('Model', Model.current.value);
+            formData.append('Puissance', Puissance.current.value);
+            formData.append('TypeCar', Carburant.current.value);
+            formData.append('City', City.current.value);
+            formData.append('Location', Address.current.value);
+        
+            // Append all selected files to formData
+            for (let i = 0; i < selectedFiles.length; i++) {
+              formData.append(`photos[]`, selectedFiles[i]);
+            }
+        
+            try {
+              const response = await axios.post(`${Api}/${storeAds}`, formData, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                  'Content-Type': 'multipart/form-data', // Important for file uploads
+                },
+              });
+        
+              console.log('new_response', response);
+              clearInputs()
+              setNextStep1(false)
+              setNextStep2(false)
+              setError('')
+              setSelectedFiles('')
+              setImageUrls('')
 
-    // Append all selected files to formData
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append(`photos[]`, selectedFiles[i]);
-    }
+              Swal.fire({
+                title: "You must wait for the admin  to accept your Ad. This will be done in 30 minutes",
+                showClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `
+                },
+                hideClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                }
+              });
 
-    try {
-      const response = await axios.post(`${Api}/${storeAds}`, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          'Content-Type': 'multipart/form-data', // Important for file uploads
-        },
-      });
-
-      console.log('new_response', response);
-      // Handle success response here (e.g., show success message, redirect user)
-    } catch (error) {
-      console.error('Error submitting ad:', error);
-      // Handle error (e.g., show error message to user)
-    }
+        
+            } catch (error) {
+              console.error('Error submitting ad:', error);
+              // Handle error (e.g., show error message to user)
+            }
+           }
           };
           
 
@@ -616,7 +674,7 @@ export default function AddAds() {
                                         
                                         ref={Model}
                                       >
-                                        {isCity.map((year) => (
+                                        {Years.map((year) => (
                                           <option key={year.id} value={year}>
                                             {year}
                                           </option>
@@ -747,7 +805,7 @@ export default function AddAds() {
               >
                 {/* Start Post Ad Step Three Content */}
                 <div className="step-three-content">
-                <button
+                       <button
                         disabled={isLoading}  
                         onClick={backtoStep2}   
                         type="button"          
@@ -836,21 +894,15 @@ export default function AddAds() {
                       <div className="col-12">
                      
                         <div className="form-group button mt-3">
-                          <button
-                            type="submit"
-                            className="btn alt-btn"
-                          >
-                            Previous
-                          </button>
-                       
-                     
+
                         </div>
                       </div>
                     </div>
                   </form>
+                  <div className="form-group button mb-0">
                   <button
                           onClick={SubmitAds}
-                            className="btn"
+                            className="btn  "
                             type="button"
                             disabled={isLoading}
                           >
@@ -866,7 +918,8 @@ export default function AddAds() {
                             ) : (
                               "Submit Ad"
                             )}
-                          </button>
+                 </button>
+                 </div>
                 </div>
                 {/* Start Post Ad Step Three Content */}
               </div>

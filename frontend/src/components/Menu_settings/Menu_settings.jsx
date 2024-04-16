@@ -1,7 +1,37 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Api, user } from '../../Api/api';
 
 export default function MenuSettings() {
+  const [Auth, setAuth] = useState([]);
+
+  const getAuthUser = ()=>{
+    axios.get(`${Api}/${user}`,
+    {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token" )}`,
+          },
+      })
+    .then(function (response) {
+      // handle success
+      // console.log('user',response.data );
+      setAuth(response.data);
+ 
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+}
+
+useEffect(() => {
+  
+  getAuthUser()
+}, []);
  
   return (
    
@@ -35,11 +65,11 @@ export default function MenuSettings() {
           {/* Start Dashboard Sidebar */}
           <div className="dashboard-sidebar">
             <div className="user-image">
-              <img src="assets/images/dashboard/user-image.jpg" alt="#" />
+            <img src={`http://127.0.0.1:8000/${Auth && Auth.image}`} alt="#" />
               <h3>
-                Steve Aldridge
+              {Auth && Auth.name}
                 <span>
-                  <a href="javascript:void(0)">@username</a>
+                  <a href="javascript:void(0)">{Auth && Auth.email}</a>
                 </span>
               </h3>
             </div>
@@ -106,7 +136,7 @@ export default function MenuSettings() {
        {/* layout_menu-bar */}
 
        <Outlet />
-
+       
       </div>
     </div>
   </section>

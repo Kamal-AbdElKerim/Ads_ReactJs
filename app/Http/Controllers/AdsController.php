@@ -17,6 +17,8 @@ class AdsController extends Controller
     public function getAllAds(){
         
         $citys = json_decode(file_get_contents(public_path('json/city.json')), true);
+        $years = json_decode(file_get_contents(public_path('json/years.json')), true);
+
 
         $ads = ad::with(['users','categories', 'images', 'favorites'])
           ->where('status','approved')
@@ -29,7 +31,7 @@ class AdsController extends Controller
           $num_ADS = ad::all();
           $num_users = User::all();
 
-          return response()->json(['ads' => $ads, 'num_categories' => $num_categories, 'num_ADS' => $num_ADS, 'num_users' => $num_users, 'citys' => $citys], 200);
+          return response()->json(['ads' => $ads, 'num_categories' => $num_categories, 'num_ADS' => $num_ADS, 'num_users' => $num_users, 'citys' => $citys, 'years' => $years], 200);
 
     }
 
@@ -37,16 +39,16 @@ class AdsController extends Controller
     public function myAds($status){
 
         if ($status === 'all') {
-            $query = Ad::with('images')->where('UserID',Auth()->id())->paginate(4);
+            $query = Ad::with('images','categories')->where('UserID',Auth()->id())->paginate(4);
         } else {
-            $query = Ad::with('images')->where('status', $status)->where('UserID',Auth()->id())->paginate(4);
+            $query = Ad::with('images','categories')->where('status', $status)->where('UserID',Auth()->id())->paginate(4);
         }
 
         return response()->json(['ads' => $query], 200);
     }
 
 
-    public function update(Request $request, $id)
+    public function updateAds(Request $request, $id)
     {
         $validatedData = $request->validate([
             'Price' => 'required',
@@ -78,7 +80,7 @@ class AdsController extends Controller
         return response()->json(['message' => 'Ad updated successfully.']);
     }
 
-    public function delete($id)
+    public function deleteAds($id)
     {
         $ad = Ad::findOrFail($id);
 
