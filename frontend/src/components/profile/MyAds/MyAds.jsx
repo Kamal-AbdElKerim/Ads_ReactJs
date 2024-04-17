@@ -5,6 +5,7 @@ import Loading from '../../londing/londing';
 import Swal from 'sweetalert2'
 import Pagination from '../../Pagination/Pagination'
 import UpdateAds from './updateMyAds.jsx'
+import { Link } from 'react-router-dom';
 
 
 
@@ -208,7 +209,7 @@ console.log('SinglPage',SinglPage)
             <div className="row align-items-center">
               <div className="col-lg-5 col-md-5 col-12">
                 <div className="item-image">
-                  <img src="assets/images/my-items/my-item1.png" alt="#" />
+                <img src={`http://127.0.0.1:8000/${ad.images[0].ImageURL}`} alt="#" />
                   <div className="content">
                     <h3 className="title">
                       <a href="javascript:void(0)">{ad.Title}</a>
@@ -234,9 +235,8 @@ console.log('SinglPage',SinglPage)
                 </a>
               </li>
               <li>
-                <a href="javascript:void(0)">
-                  <i className="lni lni-eye" />
-                </a>
+                <Link to={`/SinglePage/${ad.id}`}><i className="lni lni-eye" /></Link>
+            
               </li>
               <li>
                 <a onClick={() => {deleteAds(ad.id)}} href="javascript:void(0)">

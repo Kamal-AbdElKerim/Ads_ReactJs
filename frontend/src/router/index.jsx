@@ -9,7 +9,9 @@ import Layout_settings from "../layout/Layout_settings";
 import Dashboard from "../components/profile/Dashboard/Dashboard";
 import EditProfile from "../components/profile/edit_profile/EditProfile";
 import MyAds from "../components/profile/MyAds/MyAds";
+import PageAds from '../components/pageAds/pageAds';
 import Favourite from "../components/profile/Favourite/Favourite";
+import SinglePage from "../components/Singlepage/SinglePage";
 
 
 export const router = createBrowserRouter([
@@ -28,6 +30,14 @@ export const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
+            },
+            {
+                path: "/pageAds",
+                element: <PageAds />,
+            },
+            {
+                path: "/SinglePage/:id",
+                element: <SinglePage />,
             },
           
             {

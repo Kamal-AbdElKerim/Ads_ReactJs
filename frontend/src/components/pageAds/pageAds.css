@@ -1,0 +1,14 @@
+.Category_hover{
+  cursor: pointer;
+
+}
+.show_Categories{
+  cursor: pointer;
+}
+.show_Categories:hover{
+  font-size: 20px !important;
+}
+.image_io{
+  height: 240px !important;
+ 
+}

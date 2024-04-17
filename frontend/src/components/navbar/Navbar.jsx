@@ -52,7 +52,7 @@ export default function Navbar() {
                   
                     </li>
                     <li class="nav-item">
-                    <Link  to="/Favoris">Favoris</Link>
+                    <Link  to="/pageAds">PageAds</Link>
 
                     </li>
                     <li class="nav-item">

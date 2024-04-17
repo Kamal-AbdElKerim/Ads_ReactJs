@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdsController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\UserAuthController;
@@ -28,6 +29,12 @@ use App\Http\Controllers\BusinessCardController;
 
     Route::get('getAllAds', [AdsController::class, 'getAllAds']);
     Route::get('SinglPage/{id}', [AdsController::class, 'SinglPage']);
+
+    Route::get('ads', [AdsController::class, 'findByFilters']);
+
+
+    Route::get('Citys', [CityController::class, 'index']);
+
     
     
     Route::get('getTagsByCategory/{category}', [TagsController::class, 'getTagsByCategory']);

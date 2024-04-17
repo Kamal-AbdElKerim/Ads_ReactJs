@@ -39,9 +39,9 @@ class AdsController extends Controller
     public function myAds($status){
 
         if ($status === 'all') {
-            $query = Ad::with('images','categories')->where('UserID',Auth()->id())->paginate(4);
+            $query = Ad::latest()->with('images','categories')->where('UserID',Auth()->id())->paginate(4);
         } else {
-            $query = Ad::with('images','categories')->where('status', $status)->where('UserID',Auth()->id())->paginate(4);
+            $query = Ad::latest()->with('images','categories')->where('status', $status)->where('UserID',Auth()->id())->paginate(4);
         }
 
         return response()->json(['ads' => $query], 200);
@@ -187,5 +187,48 @@ class AdsController extends Controller
             'ad_id' => $lastInsertedId,
 
         ], 200);
+    }
+
+
+    public function findByFilters(Request $request)
+    {
+        $query = ad::latest()->with(['favorites','categories','images']);
+        $Category = Categorie::has('ads')->with('ads')->withCount('ads')->get();
+
+
+        // Apply category filter
+        if ($request->keyword) {
+
+              $query->where('Title', 'LIKE', '%'. $request->keyword. '%');
+                
+        }
+
+        if($request->Category){
+
+              $query->where('CategoryID', $request->Category);
+
+        }
+  // Apply city filter
+        if ($request->city) {
+            $query->where('City', $request->city);
+        }
+
+        
+
+        // Apply price filter (range)
+        if ($request->price) {
+         
+            $query->where('Price', '<=', $request->price);
+        }
+
+      
+
+        // Get the ads matching the filters
+        $ads = $query->paginate(3);
+
+        return response()->json([
+            'ads' => $ads,
+            'Category' => $Category,
+        ]);
     }
 }

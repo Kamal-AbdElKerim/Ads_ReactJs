@@ -130,6 +130,23 @@ export default function AddAds() {
   
   };
 
+  useEffect(() => {
+    
+    if (Model.current) {
+      Model.current.value = 2012;
+  }
+    if (Puissance.current) {
+      Puissance.current.value = '5 CV';
+  }
+    if (Carburant.current) {
+      Puissance.current.value = 'Diesel';
+  }
+
+
+
+
+  }, []);
+
   const removeImage = (index) => {
     const newImageUrls = [...imageUrls];
     const removedFile = newImageUrls[index].file;
@@ -192,15 +209,17 @@ export default function AddAds() {
     if (Condition.current.value === "") {
         errorsObject.Condition = 'Condition is required'; 
     }
-    if (Model.current.value === "") {
+    if (Model.current && Model.current.value === "") {
         errorsObject.Model = 'Model is required'; 
     }
-    if (Puissance.current.value === "") {
+    if (Model.current && Puissance.current.value === "") {
         errorsObject.Puissance = 'Puissance is required'; 
     }
-    if (Carburant.current.value === "") {
+    if (Model.current && Carburant.current.value === "") {
         errorsObject.Carburant = 'Carburant is required'; 
     }
+
+    
  
   
     console.log(errorsObject)
@@ -273,9 +292,9 @@ export default function AddAds() {
             formData.append('Type_price', Type_price.current.value);
             formData.append('Description', Description.current.value);
             formData.append('Condition', Condition.current.value);
-            formData.append('Model', Model.current.value);
-            formData.append('Puissance', Puissance.current.value);
-            formData.append('TypeCar', Carburant.current.value);
+            formData.append('Model', Model.current?.value);
+            formData.append('Puissance', Puissance.current?.value);
+            formData.append('TypeCar', Carburant.current?.value);
             formData.append('City', City.current.value);
             formData.append('Location', Address.current.value);
         
