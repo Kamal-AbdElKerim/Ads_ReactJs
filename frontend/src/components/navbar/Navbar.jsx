@@ -46,18 +46,21 @@ export default function Navbar() {
                   id="navbarSupportedContent"
                 >
                   <ul id="nav" className="navbar-nav ms-auto">
-                    <li class="nav-item">
+                    <li className="nav-item">
                     <Link  to="/home">Home</Link>
 
                   
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                     <Link  to="/pageAds">PageAds</Link>
 
                     </li>
-                    <li class="nav-item">
-                  
+
+                    <li className="nav-item">
+                    <Link  to="/Dashboard/user">Profile</Link>
+
                     </li>
+                   
                   </ul>
                 </div>{" "}
                 {/* navbar collapse */}
@@ -66,7 +69,7 @@ export default function Navbar() {
                   {localStorage.getItem('access_token') ? (
                             <li>
                                 
-                                <a href='javascript:void(0)' onClick={handleLogout}><i class="lni lni-enter"></i> Logout</a>
+                                <a href='javascript:void(0)' onClick={handleLogout}><i className="lni lni-enter"></i> Logout</a>
 
                             </li>
                         ) : (
@@ -91,13 +94,13 @@ export default function Navbar() {
                   <Link to="/AddAds" className="btn">Post an Ad</Link>
                  
                 </div>
-              </nav>{" "}
+              </nav>
               {/* navbar */}
             </div>
           </div>
         </div>{" "}
         {/* row */}
-      </div>{" "}
+      </div>
       {/* container */}
     </header>
 

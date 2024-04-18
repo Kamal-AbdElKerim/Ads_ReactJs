@@ -2,8 +2,24 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Api, user } from '../../Api/api';
+import { useNavigate } from "react-router-dom";
+
 
 export default function MenuSettings() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if ( !localStorage.getItem('access_token')) {
+        
+      navigate('/login')
+      }
+   }, []);
+
+
+   const handleLogout = () => {
+       localStorage.removeItem('access_token');
+       navigate('/login');
+   };
+
   const [Auth, setAuth] = useState([]);
 
   const getAuthUser = ()=>{
@@ -65,7 +81,7 @@ useEffect(() => {
           {/* Start Dashboard Sidebar */}
           <div className="dashboard-sidebar">
             <div className="user-image">
-            <img src={`http://127.0.0.1:8000/${Auth && Auth.image}`} alt="#" />
+            <img src={`http://127.0.0.1:8000/images/${Auth && Auth.image}`} alt="#" />
               <h3>
               {Auth && Auth.name}
                 <span>
@@ -103,28 +119,17 @@ useEffect(() => {
 
                 </li>
                 <li>
-                  <a href="bookmarked-items.html">
-                    <i className="lni lni-bookmark" /> Bookmarked
-                  </a>
+               
+                  <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : "" } to='/Messages'><i className="lni lni-envelope" /> Messages</NavLink>
+
                 </li>
-                <li>
-                  <a href="messages.html">
-                    <i className="lni lni-envelope" /> Messages
-                  </a>
-                </li>
-                <li>
-                  <a href="delete-account.html">
-                    <i className="lni lni-trash" /> Close account
-                  </a>
-                </li>
-                <li>
-                  <a href="invoice.html">
-                    <i className="lni lni-printer" /> Invoice
-                  </a>
-                </li>
+             
+              
+              
+              
               </ul>
               <div className="button">
-                <a className="btn" href="javascript:void(0)">
+                <a onClick={handleLogout} className="btn" href="javascript:void(0)">
                   Logout
                 </a>
               </div>

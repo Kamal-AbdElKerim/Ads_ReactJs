@@ -11,4 +11,9 @@ export const Singl_Page = "SinglPage" ;
 export const update_Ads = "updateAds" ;
 export const Ads = "ads" ;
 export const Citys = "Citys" ;
+export const favorite = "favorite" ;
+export const remove_favorite = "remove_favorite" ;
+export const list_favorite = "list_favorite" ;
+export const Dashboard_user = "Dashboard_user" ;
+export const remove_notification = "remove_notification" ;
  

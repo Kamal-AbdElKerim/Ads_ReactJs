@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -108,4 +109,51 @@ class UserAuthController extends Controller
             "message" => "logged out"
         ]);
     }
+
+
+
+    public function updateProfile(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+        } else {
+            $imageName = 'profile-icon.jpg'; 
+        }
+
+        $id = Auth()->id();
+        $user = User::findOrFail($id);
+
+        $user->name = $request->input('name');
+        $user->phone = $request->input('phone');
+        $user->image = $imageName;
+
+        $user->save();
+
+       
+       
+        return response()->json($user);
+    }
+
+    // Change authenticated user's password
+    public function changePassword(Request $request)
+    {
+        $id = Auth()->id();
+        $user = User::findOrFail($id);
+  
+    // Check if the current password provided matches the user's current password
+    if (!Hash::check($request->currentPassword, $user->password)) {
+        return response()->json(['error' => 'Current password is incorrect'], 401);
+    }
+
+    // If current password is correct, update the user's password
+    $user->update([
+        'password' => Hash::make($request->newPassword)
+    ]);
+
+    return response()->json(['message' => 'Password changed successfully']);
+    }
+
+   
 }

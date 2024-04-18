@@ -47,7 +47,7 @@ class favoriteController extends Controller
         $favorites = favorite::where('UserID', $userId)
         ->with(['ads.categories', 'ads.images'])
 
-        ->paginate(10);
+        ->paginate(4);
 
         return response()->json($favorites, 200);
        

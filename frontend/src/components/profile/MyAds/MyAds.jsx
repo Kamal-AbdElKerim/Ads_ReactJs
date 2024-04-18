@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export default function MyAds() {
   const [Data, setData] = useState([]);
-  let [isLoading, setIsLoading] = useState(false);
+  let [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState('all');
   let [links, setLinks] = useState([]) ;
   const [Page, setPage] = useState(1);
@@ -32,12 +32,13 @@ export default function MyAds() {
           console.log('myAds',response );
           setData(response.data.ads.data);
           setLinks(response.data.ads.links)
-          
+          setIsLoading(false)
     
         })
         .catch(function (error) {
           // handle error
           console.log(error);
+          setIsLoading(false)
         })
         .finally(function () {
           // always executed
@@ -141,7 +142,6 @@ export default function MyAds() {
       });
        
     }
-console.log('SinglPage',SinglPage)
   return (
     
     <div className="col-lg-9 col-md-12 col-12">

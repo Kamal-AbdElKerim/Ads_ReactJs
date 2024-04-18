@@ -12,6 +12,7 @@ import MyAds from "../components/profile/MyAds/MyAds";
 import PageAds from '../components/pageAds/pageAds';
 import Favourite from "../components/profile/Favourite/Favourite";
 import SinglePage from "../components/Singlepage/SinglePage";
+import Messages from "../components/profile/Messages/Messages";
 
 
 export const router = createBrowserRouter([
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
             {
                 path: "/Dashboard/user",
                 element: <Dashboard />,
+            },
+            {
+                path: "/Messages",
+                element: <Messages />,
             },
             {
                 path: "*",

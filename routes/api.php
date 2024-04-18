@@ -8,6 +8,7 @@ use App\Http\Controllers\TagsController;
 use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\BusinessCardController;
+use App\Http\Controllers\DashboardUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,18 @@ use App\Http\Controllers\BusinessCardController;
 
         // Route to update an ad
         // Route::post('/my-ads/{id}', [favoriteController::class, 'update'])->name('my-ads.update');
+
+
+           // Route to update authenticated user's profile
+                Route::post('/user/profile', [UserAuthController::class, 'updateProfile']);
+
+                // Route to change authenticated user's password
+                Route::put('/user/password', [UserAuthController::class, 'changePassword']);
+
+                // Route to upload user's profile picture
+                Route::get('/Dashboard_user', [DashboardUserController::class, 'Dashboard_user']);
+
+                Route::get('/remove_notification/{id}', [DashboardUserController::class, 'remove_notification']);
 
    
 

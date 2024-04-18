@@ -238,9 +238,9 @@ export default function UpdateAds({setIsLoading,setSinglPage,id, Title, Price, T
                             </div>
                       
                         </form>
-                        <div class="col-12">
+                        <div className="col-12">
 
-                                <div class="form-group button mb-0">
+                                <div className="form-group button mb-0">
                                 <button onClick={updateAds}
                                 className="btn"
                                 type="submit"

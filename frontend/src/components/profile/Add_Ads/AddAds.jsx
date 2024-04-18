@@ -567,8 +567,8 @@ export default function AddAds() {
                         </div>
                       </div>
                        {/* start uplode images */}
-                      <div class="col-lg-12 col-12">
-                        <div class="upload-input">
+                      <div className="col-lg-12 col-12">
+                        <div className="upload-input">
                           <input
                             type="file"
                             id="upload"
@@ -577,22 +577,22 @@ export default function AddAds() {
                             multiple
                             ref={fileInputRef}
                           />
-                          <label class="text-center content d-flex  justify-content-start">
-                            <span class="text">
-                              <span class="d-block mb-15">
+                          <label className="text-center content d-flex  justify-content-start">
+                            <span className="text">
+                              <span className="d-block mb-15">
                                 Drop files anywhere to Upload
                               </span>
                               <label
-                                class="button_uplode mb-15 plus-icon"
+                                className="button_uplode mb-15 plus-icon"
                                 for="upload"
                               >
-                                <i class="lni lni-plus"></i>
+                                <i className="lni lni-plus"></i>
                               </label>
 
-                              <span class="main-btn d-block btn-hover">
+                              <span className="main-btn d-block btn-hover">
                                 Select File
                               </span>
-                              <span class="d-block">
+                              <span className="d-block">
                                 Maximum upload file size 10Mb
                               </span>
                             </span>
@@ -627,7 +627,7 @@ export default function AddAds() {
                                         }}
                                       />
                                       <p
-                                        class=" bg-danger  button_close px-1  text-white "
+                                        className=" bg-danger  button_close px-1  text-white "
                                         style={{
                                           position: "absolute",
                                           top: "0px",
@@ -637,7 +637,7 @@ export default function AddAds() {
                                           removeImage(index)
                                         }
                                       >
-                                        <i class="fa-solid fa-x"></i>
+                                        <i className="fa-solid fa-x"></i>
                                       </p>
                                     </div>
                                   ))}
@@ -753,7 +753,7 @@ export default function AddAds() {
                           <label className="tag-label">
                             Tags* <span>Comma(,) separated</span>
                           </label>
-                          <div class="row ">
+                          <div className="row ">
                           {Tags && Tags.map(tag => (
                                 <div key={tag.id} className="ms-2 col-6 col-md-4 col-lg-3">
                                     <input
@@ -777,7 +777,7 @@ export default function AddAds() {
                                                       
                                                       
                                                          
-                                                            {/* <div class="text-danger">@error("tags_selected") {{ $message }} @enderror</div> */}
+                                                            {/* <div className="text-danger">@error("tags_selected") {{ $message }} @enderror</div> */}
 
                          </div>
                         </div>

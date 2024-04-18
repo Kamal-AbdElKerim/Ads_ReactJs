@@ -2,11 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Api, Singl_Page } from '../../Api/api';
+import Loading from '../londing/londing';
+import LoadingHome from '../londing/londing_Home/londingHome';
+import Chat from './chat';
 
 
 export default function SinglePage() {
     const { id } = useParams();
     const [Ads, setAds] = useState('');
+    let [isLoading, setIsLoading] = useState(true);
+
 
     const singleData = () => {
        
@@ -19,11 +24,15 @@ export default function SinglePage() {
         .then(function (response) {
           console.log('response',response );
           setAds(response.data.ad)
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 1000);
+          
         
         
         })
         .catch(function (error) {
-         
+          setIsLoading(false)
         })
         .finally(function () {
          
@@ -57,6 +66,8 @@ export default function SinglePage() {
 
   return (
     <>
+    {isLoading ? <LoadingHome /> : ''}
+    <Chat />
     {/* Start Breadcrumbs */}
     <div className="breadcrumbs">
       <div className="container">
@@ -133,10 +144,10 @@ export default function SinglePage() {
                       </a>
                     </li>
                     <li>
-                      <a href="mailto:example@gmail.com" className="mail">
-                        <i className="lni lni-envelope" />
-                      </a>
-                    </li>
+                        <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" className="mail">
+                               <i className="lni lni-envelope"></i>
+                         </a>
+                   </li>
                   </ul>
                 </div>
                 <div className="social-share">

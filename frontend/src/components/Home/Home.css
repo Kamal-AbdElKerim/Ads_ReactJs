@@ -4426,7 +4426,7 @@ blockquote .shape {
 }
 
 .single-item-grid .content .info {
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-top: 15px;
 }
 
