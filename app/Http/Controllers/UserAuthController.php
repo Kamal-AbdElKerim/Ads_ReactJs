@@ -97,6 +97,15 @@ class UserAuthController extends Controller
     }
 
 
+    public function getUser($id)
+    {
+        $user = User::findOrFail($id);
+        return $user;
+    }
+
+
+
+
 
     public function logout()
     {

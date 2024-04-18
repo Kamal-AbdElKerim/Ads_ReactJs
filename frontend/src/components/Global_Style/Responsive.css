@@ -975,8 +975,8 @@
       font-size: 13px;
     }
     .messages-body .chat-list .reply-block input {
-      width: 100%;
-      padding: 20px;
+      width: 75%;
+      padding: 15px;
       border: 1px solid #eee;
       margin-top: 10px;
       padding-right: 75px;
@@ -1003,7 +1003,7 @@
       padding-left: 3px;
       padding-bottom: 3px;
       right: 8px;
-      top: 87px;
+      top: 40px;
     }
     .messages-body .chat-list .single-chat-head li.right .text {
       padding: 20px;

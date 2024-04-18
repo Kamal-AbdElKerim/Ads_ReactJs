@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdsController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\favoriteController;
@@ -68,6 +69,9 @@ use App\Http\Controllers\DashboardUserController;
            // Route to update authenticated user's profile
                 Route::post('/user/profile', [UserAuthController::class, 'updateProfile']);
 
+
+                Route::get('/getUser/{id}', [UserAuthController::class, 'getUser']);
+
                 // Route to change authenticated user's password
                 Route::put('/user/password', [UserAuthController::class, 'changePassword']);
 
@@ -75,6 +79,15 @@ use App\Http\Controllers\DashboardUserController;
                 Route::get('/Dashboard_user', [DashboardUserController::class, 'Dashboard_user']);
 
                 Route::get('/remove_notification/{id}', [DashboardUserController::class, 'remove_notification']);
+
+                Route::post('/add_Message', [ChatController::class, 'addMessage'])->name('add_Message');
+
+
+                Route::get('/user_message/{user_id}', [ChatController::class, 'userMessages']);
+
+
+
+                Route::get('/messages-list-json',[ChatController::class, 'messagesList_json'] );
 
    
 

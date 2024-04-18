@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { Api, Singl_Page } from '../../Api/api';
+import { Api, Singl_Page, user } from '../../Api/api';
 import Loading from '../londing/londing';
 import LoadingHome from '../londing/londing_Home/londingHome';
 import Chat from './chat';
@@ -11,6 +11,8 @@ export default function SinglePage() {
     const { id } = useParams();
     const [Ads, setAds] = useState('');
     let [isLoading, setIsLoading] = useState(true);
+    const [Auth, setAuth] = useState('');
+
 
 
     const singleData = () => {
@@ -39,8 +41,27 @@ export default function SinglePage() {
         });
     }
 
+    const getAuth = () =>{
+      axios.get(`${Api}/${user}`,   {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        })
+        .then(function (response) {
+          // Handle success - Assuming response.data contains the chat messages
+          // console.log('Auth:', response);
+          setAuth(response.data)
+          // setChatMessages(response.data); // Update state with fetched messages
+        })
+        .catch(function (error) {
+          // Handle error
+          console.error('Error fetching chat messages:', error);
+        });
+    }
+
+
     useEffect(() => {
-        
+      getAuth()
         singleData()
     }, []);
 
@@ -67,7 +88,7 @@ export default function SinglePage() {
   return (
     <>
     {isLoading ? <LoadingHome /> : ''}
-    <Chat />
+    <Chat ownerAds={Ads && Ads.users}  idAD={Ads && Ads.id} />
     {/* Start Breadcrumbs */}
     <div className="breadcrumbs">
       <div className="container">
@@ -143,11 +164,15 @@ export default function SinglePage() {
                         <span>Call &amp; Get more info</span>
                       </a>
                     </li>
+                    {Ads && Ads.UserID !== Auth.id && 
+                    
+                    
                     <li>
                         <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" className="mail">
                                <i className="lni lni-envelope"></i>
                          </a>
                    </li>
+                    }
                   </ul>
                 </div>
                 <div className="social-share">

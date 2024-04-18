@@ -16,4 +16,6 @@ class Chat extends Model
         'message',
         'opened',
     ];
+
+    
 }

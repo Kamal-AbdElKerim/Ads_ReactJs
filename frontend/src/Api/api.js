@@ -16,4 +16,6 @@ export const remove_favorite = "remove_favorite" ;
 export const list_favorite = "list_favorite" ;
 export const Dashboard_user = "Dashboard_user" ;
 export const remove_notification = "remove_notification" ;
+export const add_Message = "add_Message" ;
+export const user_message = "user_message" ;
  

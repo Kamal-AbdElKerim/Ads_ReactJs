@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Api, Dashboard_user, remove_notification } from '../../../Api/api';
 import Loading from '../../londing/londing';
 import { Link } from 'react-router-dom';
+import './Dashboard.css'
 
 export default function Dashboard() {
   let [isLoading, setIsLoading] = useState(true);
@@ -122,9 +123,9 @@ useEffect(() => {
       </div>
       {/* End Details Lists */}
       <div className="row">
-        <div className="col-lg-6 col-md-12 col-12">
+        <div className="col-lg-6 col-md-12 col-12 ">
           {/* Start Activity Log */}
-          <div className="activity-log dashboard-block">
+          <div className="activity-log dashboard-block scrollable-container">
             <h3 className="block-title">My Activity Log</h3>
             <ul>
            {notifications && notifications.map((notification) => (
