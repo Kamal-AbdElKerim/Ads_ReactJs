@@ -2,15 +2,43 @@ import {React,useEffect,useState} from 'react'
 
 import './Home.css';
 import axios from 'axios';
-import { Api, getAllAds } from '../../Api/api';
+import { Api, favorite, getAllAds, remove_favorite, user } from '../../Api/api';
+import { Link , useNavigate } from 'react-router-dom';
+import Loading from '../londing/londing';
 
 export default function Home() {
 
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isCity, setIsCity] = useState([]);
   const [num_ADS, setnum_ADS] = useState([]);
   const [num_categories, setnum_categories] = useState([]);
   const [num_users, setnum_users] = useState([]);
+  const [LastAds, setLastAds] = useState('');
+  const [Auth, setAuth] = useState(''); 
+
+  const navigate = useNavigate();
+  const getAuthUser = ()=>{
+    axios.get(`${Api}/${user}`,
+    {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token" )}`,
+          },
+      })
+    .then(function (response) {
+      // handle success
+      // console.log('user',response.data );
+      setAuth(response.data);
+ 
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+}
 
   const getAds = ()=>{
         axios.get(`${Api}/${getAllAds}`)
@@ -32,14 +60,75 @@ export default function Home() {
         });
   }
 
+  const get_LastAds = ()=>{
+
+        axios.get(`${Api}/Latest_Products`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+          setLastAds(response.data)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+  }
+
+  const favouriteAds = (id) => {
+    console.log(id)
+    axios.get(`${Api}/${favorite}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+    .then(function (response) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false)
+   
+      }, 1000);
+      console.log('Ad favorited successfully!', response);
+    })
+    .catch(function (error) {
+      navigate('/login')
+      console.log('Error favoriting ad:', error);
+    });
+  };
+
+  const DisiblefavouriteAds = (id) => {
+    console.log(id)
+    axios.get(`${Api}/${remove_favorite}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+    .then(function (response) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false)
+   
+      }, 1000);
+      console.log('Ad favorited successfully!', response);
+    })
+    .catch(function (error) {
+
+      console.log('Error favoriting ad:', error);
+    });
+  };
+
   useEffect(() => {
-    
+    get_LastAds()
     getAds()
-  }, []);
+    getAuthUser()
+  }, [isLoading]);
 
   return (
     <div>
       <>
+      {isLoading && <Loading />}
   {/* Start Hero Area */}
   <section className="hero-area style2 overlay">
     <div className="container">
@@ -171,42 +260,85 @@ export default function Home() {
         </div>
       </div>
       <div className="single-head">
-        <div className="row">
-        <div className="col-lg-4 col-md-6 col-12">
-          {/* Start Single Item */}
-          <div className="single-item-grid">
-            <div className="image">
-              <a href="item-details.html">
-                <img src="assets/images/items-tab/item-1.jpg" alt="#" />
-              </a>
-              <i className=" cross-badge lni lni-bolt" />
-              <span className="flat-badge sale">Sale</span>
-            </div>
-            <div className="content">
-              <a href="javascript:void(0)" className="tag">
-                Mobile
-              </a>
-              <h3 className="title">
-                <a href="item-details.html">Apple Iphone X</a>
-              </h3>
-              <p className="location">
-                <a href="javascript:void(0)">
-                  <i className="lni lni-map-marker"></i>Boston
-                </a>
-              </p>
-              <ul className="info">
-                <li className="price">$890.00</li>
-                <li className="like">
-                  <a href="javascript:void(0)">
-                    <i className="lni lni-heart" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          {/* End Single Item */}
-        </div>
-        </div>
+      <div className="row">
+                        {LastAds.length > 0 ? LastAds.map(ads => (
+
+                        <div className="col-lg-4 col-md-6 col-12">
+                          {/* Start Single Item */}
+                          <div className="single-item-grid">
+                            <div className="image">
+                             
+                              <Link to={`/SinglePage/${ads.id}`}>
+                              <img
+                                  src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
+                                  alt="#"  className='image_io'
+                                />
+                              </Link>
+                              <i className=" cross-badge lni lni-bolt" />
+                              <span className="flat-badge sale">Sale</span>
+                            </div>
+                            <div className="content">
+                              <a href="javascript:void(0)" className="tag">
+                                {ads.categories.Name }
+                              </a>
+                              <h3 className="title">
+                              <Link to={`/SinglePage/${ads.id}`}>
+                              {ads.Title }
+                              </Link>
+                                
+                              </h3>
+                              <p className="location">
+                                <a href="javascript:void(0)">
+                                  <i className="lni lni-map-marker"></i>{ads.City }
+                                </a>
+                              </p>
+                              <ul className="info d-flex  justify-content-between ">
+                                <li className="price">{ads.Price } MAD</li>
+                                {ads.favorites.some(
+                                 (favorite) => favorite.UserID === Auth.id && favorite.AdID === ads.id
+                                     ) ? 
+                                
+                                <li  className="">
+                                <a  onClick={() =>  DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
+                                <i class="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
+                                </a>
+                                
+
+                                </li>
+                                
+                                
+                                :
+                                
+                                <li  className="">
+                                <a   onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
+                                <i class="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
+                                </a>
+                                
+
+                                </li>
+                                
+                                
+                                
+                                }
+                              
+                              </ul>
+                            </div>
+                          </div>
+                          {/* End Single Item */}
+                        </div>
+                        )) : 
+                        <div className="col-lg-12 col-md-12 col-12">
+                        {/* Start Single Item */}
+                        <div className="single-item-grid text-center ">
+                            <img src="page_not_found/notFound.png" alt="" />
+                          </div>
+                          </div>
+                        
+                        
+                        
+                        }
+                   
+                      </div>
       </div>
     </div>
   </section>
@@ -268,31 +400,7 @@ export default function Home() {
     </div>
   </section>
   {/* End How Works Area */}
-  {/* Start Call Action Area */}
-  <section className="call-action overlay section">
-    <div className="container">
-      <div className="row ">
-        <div className="col-lg-8 offset-lg-2 col-12">
-          <div className="inner">
-            <div className="content">
-              <h2 className="wow fadeInUp" data-wow-delay=".4s">
-                Do you have something to sell?
-              </h2>
-              <p className="wow fadeInUp" data-wow-delay=".6s">
-                Post your ad for free on ADS
-              </p>
-              <div className="button wow fadeInUp" data-wow-delay=".8s">
-                <a href="{{ route('post.ads') }}" className="btn">
-                  Post an ad now
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  {/* End Call Action Area */}
+
 </>
 
     </div>

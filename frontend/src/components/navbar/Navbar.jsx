@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css'
 
 export default function Navbar() {
@@ -47,17 +47,19 @@ export default function Navbar() {
                 >
                   <ul id="nav" className="navbar-nav ms-auto">
                     <li className="nav-item">
-                    <Link  to="/home">Home</Link>
+                    <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : "" } to="/home">Home</NavLink>
 
                   
                     </li>
                     <li className="nav-item">
-                    <Link  to="/pageAds">PageAds</Link>
+                    <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : "" } to="/pageAds">Ads</NavLink>
+
 
                     </li>
 
                     <li className="nav-item">
-                    <Link  to="/Dashboard/user">Profile</Link>
+                    <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : "" } to="/Dashboard/user">Profile</NavLink>
+
 
                     </li>
                    

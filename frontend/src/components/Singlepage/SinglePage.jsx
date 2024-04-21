@@ -5,6 +5,7 @@ import { Api, Singl_Page, user } from '../../Api/api';
 import Loading from '../londing/londing';
 import LoadingHome from '../londing/londing_Home/londingHome';
 import Chat from './chat';
+import './SinglePage.css'
 
 
 export default function SinglePage() {

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Api, user } from '../../Api/api';
 import { useNavigate } from "react-router-dom";
+import './Style_Profile/Profile.css'
 
 
 export default function MenuSettings() {

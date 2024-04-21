@@ -33,6 +33,8 @@ use App\Http\Controllers\DashboardUserController;
     Route::get('SinglPage/{id}', [AdsController::class, 'SinglPage']);
 
     Route::get('ads', [AdsController::class, 'findByFilters']);
+    
+    Route::get('Latest_Products', [AdsController::class, 'Latest_Products']);
 
 
     Route::get('Citys', [CityController::class, 'index']);

@@ -35,6 +35,18 @@ class AdsController extends Controller
 
     }
 
+    public function Latest_Products(){
+
+        $ads = ad::with(['users','categories', 'images', 'favorites'])
+        // ->where('status','approved')
+        ->latest('created_at')
+        ->limit(6)
+        ->get();
+
+        return $ads;
+
+    }
+
 
     public function myAds($status){
 

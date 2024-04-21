@@ -13,6 +13,11 @@ import PageAds from '../components/pageAds/pageAds';
 import Favourite from "../components/profile/Favourite/Favourite";
 import SinglePage from "../components/Singlepage/SinglePage";
 import Messages from "../components/profile/Messages/Messages";
+import LayoutDashboard from "../layout/Dashboard";
+import Categorie from "../components/Dashboard_Admin/Categorie/Categorie";
+import DashboardAdmin from "../components/Dashboard_Admin/Dashboard/Dashboard";
+import Users from "../components/Dashboard_Admin/Users/Users";
+import ListAds from "../components/Dashboard_Admin/ListAds/ListAds";
 
 
 export const router = createBrowserRouter([
@@ -77,6 +82,34 @@ export const router = createBrowserRouter([
                 path: "/Messages",
                 element: <Messages />,
             },
+            {
+                path: "*",
+                element: <h1>no data</h1>,
+            },
+        ]
+    },
+    {
+        element: <LayoutDashboard />,
+        children: [
+         
+            {
+                path: "/Categorie",
+                element: <Categorie />,
+            },
+            {
+                path: "/Dashboard/Admin",
+                element: <DashboardAdmin />,
+            },
+            {
+                path: "/Users",
+                element: <Users />,
+            },
+            {
+                path: "/ListAds",
+                element: <ListAds />,
+            },
+         
+         
             {
                 path: "*",
                 element: <h1>no data</h1>,
