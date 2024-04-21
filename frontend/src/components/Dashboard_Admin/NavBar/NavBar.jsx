@@ -5,7 +5,7 @@ export default function NavBar({Active,hiddenAside}) {
 
 
   return (
-    <header className="header">
+    <header className="header mb-5">
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-5 col-md-5 col-6">

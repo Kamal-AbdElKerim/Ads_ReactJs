@@ -1,309 +1,168 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { Api } from '../../../Api/api';
+import Pagination from '../../Pagination/Pagination';
+import Loading from '../../londing/londing';
 
 export default function Users() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [links, setLinks] = useState('');
+  const [Page, setPage] = useState(1);
+  const [Users, setUsers] = useState('');
+
+  
+
+  const getUsers = () => {
+    setIsLoading(true);
+    axios.get(`${Api}/Dashboard/Users?page=${Page}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+    })
+    .then(function (response) {
+        console.log(response.data.data)
+        setLinks(response.data.links)
+        setUsers(response.data.data);
+        setIsLoading(false);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+};
+
+useEffect(() => {
+  
+  getUsers()
+}, [Page]);
+
+
+
+    const hiddeUser = (id) => {
+      setIsLoading(true);
+      axios.get(`${Api}/Dashboard/block_user/${id}?page=${Page}`, {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+      })
+      .then(function (response) {
+          console.log(response)
+        
+          getUsers()
+          setIsLoading(false);
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+
+
+
+    }
   return (
 
-  <section className="tab-components">
-    <div className="container-fluid">
-      {/* ========== title-wrapper start ========== */}
-      <div className="title-wrapper pt-30">
-        <div className="row align-items-center">
-          <div className="col-md-6">
-            <div className="title">
-              <h2>Form Elements</h2>
-            </div>
-          </div>
-          {/* end col */}
-          <div className="col-md-6">
-            <div className="breadcrumb-wrapper">
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="#0">Dashboard</a>
-                  </li>
-                  <li className="breadcrumb-item">
-                    <a href="#0">Forms</a>
-                  </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Form Elements
-                  </li>
-                </ol>
-              </nav>
-            </div>
-          </div>
-          {/* end col */}
-        </div>
-        {/* end row */}
-      </div>
-      {/* ========== title-wrapper end ========== */}
-      {/* ========== form-elements-wrapper start ========== */}
-      <div className="form-elements-wrapper">
-        <div className="row">
-          <div className="col-lg-6">
-            {/* input style start */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Input Fields</h6>
-              <div className="input-style-1">
-                <label>Full Name</label>
-                <input type="text" placeholder="Full Name" />
-              </div>
-              {/* end input */}
-              <div className="input-style-2">
-                <input type="text" placeholder="Full Name" />
-                <span className="icon">
-                  {" "}
-                  <i className="lni lni-user" />{" "}
-                </span>
-              </div>
-              {/* end input */}
-              <div className="input-style-3">
-                <input type="text" placeholder="Full Name" />
-                <span className="icon">
-                  <i className="lni lni-user" />
-                </span>
-              </div>
-              {/* end input */}
-            </div>
-            {/* end card */}
-            {/* ======= input style end ======= */}
-            {/* ======= select style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Selects</h6>
-              <div className="select-style-1">
-                <label>Category</label>
-                <div className="select-position">
-                  <select>
-                    <option value="">Select category</option>
-                    <option value="">Category one</option>
-                    <option value="">Category two</option>
-                    <option value="">Category three</option>
-                  </select>
+    
+  <section className="tab-components ">
+                {isLoading && <Loading />}
+
+            {/* {isLoading && <Loading />} */}
+            <div className="container-fluid">
+                <div className="title-wrapper pt-30 ">
+                    <h2>Form Elements</h2>
                 </div>
-              </div>
-              {/* end select */}
-              <div className="select-style-2">
-                <div className="select-position">
-                  <select>
-                    <option value="">Select category</option>
-                    <option value="">Category one</option>
-                    <option value="">Category two</option>
-                    <option value="">Category three</option>
-                  </select>
-                </div>
-              </div>
-              {/* end select */}
-            </div>
-            {/* end card */}
-            {/* ======= select style end ======= */}
-            {/* ======= select style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Time and Date</h6>
-              <div className="input-style-1">
-                <label>Date</label>
-                <input type="date" />
-              </div>
-              {/* end input */}
-              <div className="input-style-2">
-                <input type="date" />
-                <span className="icon">
-                  <i className="lni lni-chevron-down" />
-                </span>
-              </div>
-              {/* end input */}
-              <div className="input-style-2">
-                <input type="time" />
-              </div>
-              {/* end input */}
-            </div>
-            {/* end card */}
-            {/* ======= input style end ======= */}
-            {/* ======= input switch style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Toggle switch input</h6>
-              <div className="form-check form-switch toggle-switch mb-30">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="toggleSwitch1"
-                />
-                <label className="form-check-label" htmlFor="toggleSwitch1">
-                  Default switch checkbox input
-                </label>
-              </div>
-              <div className="form-check form-switch toggle-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="toggleSwitch2"
-                  defaultChecked=""
-                />
-                <label className="form-check-label" htmlFor="toggleSwitch2">
-                  Default switch checkbox input
-                </label>
-              </div>
-            </div>
-            {/* ======= input switch style end ======= */}
+                <div className="row mt-5">
+                        <div className="col-lg-12">
+        <div className="card-style mb-30">
+          <h6 className="mb-10">List Users</h6>
+          <div className="table-wrapper table-responsive">
+          
+            <table className="table text-center ">
+              <thead>
+                <tr>
+                  <th>
+                    <h6>Name</h6>
+                  </th>
+                  <th>
+                    <h6>Email</h6>
+                  </th>
+                  <th>
+                    <h6>phone</h6>
+                  </th>
+                  <th>
+                    <h6>Status</h6>
+                  </th>
+                  <th>
+                    <h6>Action</h6>
+                  </th>
+                </tr>
+                {/* end table row*/}
+              </thead>
+              <tbody>
+                {Users && Users.map((user) => (
+
+                <tr>
+                  <td className="min-width">
+                    <p>
+                   {user.name}
+                    </p>
+                  </td>
+                  <td className="min-width">
+                    <p>
+                      <a href="#0">
+                       {user.email}
+                      </a>
+                    </p>
+                  </td>
+                  <td className="min-width">
+                    <p>
+                     {user.phone}
+                    </p>
+                  </td>
+                  <td className="min-width">
+                    {user.deleted_at	 === null ? 
+                    
+                    <span className="status-btn active-btn">Active</span>
+                    :
+                    <span className="status-btn success-btn">Inactive</span>
+                  }
+                   
+                  </td>
+                  <td>
+                    <div className="action mx-auto d-block ">
+                    {user.deleted_at	 === null ? 
+                      <a onClick={() => {hiddeUser(user.id)}}
+                      className="text-danger"
+                      href="#"
+                    >
+                      <i className="fa-solid fa-user-slash" />
+                    </a>
+                    :
+                    <a onClick={() => {hiddeUser(user.id)}}
+                    className="text-primary"
+                    href="#"
+                  >
+                    <i className="fa-solid fa-user-slash" />
+                  </a>
+                  }
+                    
+                    
+                    </div>
+                  </td>
+                </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* end table */}
           </div>
-          {/* end col */}
-          <div className="col-lg-6">
-            {/* ======= textarea style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Textarea</h6>
-              <div className="input-style-1">
-                <label>Message</label>
-                <textarea placeholder="Message" rows={5} defaultValue={""} />
-              </div>
-              {/* end textarea */}
-              <div className="input-style-3">
-                <textarea placeholder="Message" rows={5} defaultValue={""} />
-                <span className="icon">
-                  <i className="lni lni-text-format" />
-                </span>
-              </div>
-              {/* end textarea */}
-            </div>
-            {/* ======= textarea style end ======= */}
-            {/* ======= checkbox style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Checkbox</h6>
-              <div className="form-check checkbox-style mb-20">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  defaultValue=""
-                  id="checkbox-1"
-                />
-                <label className="form-check-label" htmlFor="checkbox-1">
-                  Default Checkbox
-                </label>
-              </div>
-              {/* end checkbox */}
-              <div className="form-check checkbox-style mb-20">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  defaultValue=""
-                  id="checkbox-2"
-                  disabled=""
-                />
-                <label className="form-check-label" htmlFor="checkbox-2">
-                  Disabled Checkbox
-                </label>
-              </div>
-              {/* end checkbox */}
-              <div className="form-check checkbox-style checkbox-success mb-20">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  defaultValue=""
-                  id="checkbox-3"
-                />
-                <label className="form-check-label" htmlFor="checkbox-3">
-                  Success Checkbox
-                </label>
-              </div>
-              {/* end checkbox */}
-              <div className="form-check checkbox-style checkbox-warning mb-20">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  defaultValue=""
-                  id="checkbox-4"
-                />
-                <label className="form-check-label" htmlFor="checkbox-4">
-                  Warning Checkbox
-                </label>
-              </div>
-              {/* end checkbox */}
-              <div className="form-check checkbox-style checkbox-danger mb-20">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  defaultValue=""
-                  id="checkbox-5"
-                />
-                <label className="form-check-label" htmlFor="checkbox-5">
-                  Danger Checkbox
-                </label>
-              </div>
-              {/* end checkbox */}
-            </div>
-            {/* ======= checkbox style end ======= */}
-            {/* ======= radio style start ======= */}
-            <div className="card-style mb-30">
-              <h6 className="mb-25">Radio</h6>
-              <div className="form-check radio-style mb-20">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  defaultValue=""
-                  id="radio-1"
-                />
-                <label className="form-check-label" htmlFor="radio-1">
-                  Default Radio
-                </label>
-              </div>
-              {/* end radio */}
-              <div className="form-check radio-style mb-20">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  defaultValue=""
-                  id="radio-2"
-                  disabled=""
-                />
-                <label className="form-check-label" htmlFor="radio-2">
-                  Disabled Radio
-                </label>
-              </div>
-              {/* end radio */}
-              <div className="form-check radio-style radio-success mb-20">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  defaultValue=""
-                  id="radio-3"
-                />
-                <label className="form-check-label" htmlFor="radio-3">
-                  Success Radio
-                </label>
-              </div>
-              {/* end radio */}
-              <div className="form-check radio-style radio-warning mb-20">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  defaultValue=""
-                  id="radio-4"
-                />
-                <label className="form-check-label" htmlFor="radio-4">
-                  Warning Radio
-                </label>
-              </div>
-              {/* end radio */}
-              <div className="form-check radio-style radio-danger mb-20">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  defaultValue=""
-                  id="radio-5"
-                />
-                <label className="form-check-label" htmlFor="radio-5">
-                  Danger Radio
-                </label>
-              </div>
-              {/* end radio */}
-            </div>
-            {/* ======= radio style end ======= */}
-          </div>
-          {/* end col */}
         </div>
-        {/* end row */}
+        {/* end card */}
       </div>
-      {/* ========== form-elements-wrapper end ========== */}
+      {/* end col */}
+      <Pagination links={links}  setPage={setPage} setLoading={setIsLoading}/>
+
     </div>
-    {/* end container */}
+  </div>
+ 
   </section>
+  
 
 
 

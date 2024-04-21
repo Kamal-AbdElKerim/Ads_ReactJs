@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Validator;
 
 class AdsController extends Controller
 {
+
+
+    
+    public function AllAds(){
+
+        $Ads = ad::with(['users','categories', 'images'])->latest()->paginate(5);
+        return response()->json($Ads, 200);
+
+    }
     public function getAllAds(){
         
         $citys = json_decode(file_get_contents(public_path('json/city.json')), true);
@@ -243,4 +252,77 @@ class AdsController extends Controller
             'Category' => $Category,
         ]);
     }
+
+
+    public function approve($id)
+{
+    try {
+        $ad = ad::findOrFail($id);
+        $ad->status = 'approved';
+        $ad->save();
+
+        $id = $ad->UserID;
+        $user = User::findOrFail($id);
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found for this ad.',
+            ], 404);
+        }
+
+        Notification::create([
+            'user_id' => $user->id,
+            'type' => 'info',
+            'message' => 'Your ad has been displayed.',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ad approved successfully.',
+            'ad' => $ad, // Optionally return the updated ad
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+public function reject($id)
+{
+    try {
+        $ad = Ad::findOrFail($id);
+        $ad->status = 'rejected';
+        $ad->save();
+
+        $id = $ad->UserID;
+        $user = User::findOrFail($id);
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found for this ad.',
+            ], 404);
+        }
+
+        Notification::create([
+            'user_id' => $user->id,
+            'type' => 'info',
+            'message' => 'Your ad has been disapproved.',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ad rejected successfully.',
+            'ad' => $ad, // Optionally return the updated ad
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+}
 }

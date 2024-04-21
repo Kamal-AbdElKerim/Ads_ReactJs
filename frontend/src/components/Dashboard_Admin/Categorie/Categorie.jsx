@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AllCategorie, Api } from '../../../Api/api';
 import Loading from '../../londing/londing';
 import Swal from 'sweetalert2'
+import Pagination from '../../Pagination/Pagination';
 
 export default function Categorie() {
     const [updateCategoryInput, setUpdateCategoryInput] = useState(false);
@@ -14,16 +15,23 @@ export default function Categorie() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [IDCategorie, setIDCategorie] = useState('');
+    const [links, setLinks] = useState('');
+    const [Page, setPage] = useState(1);
+
 
 
     const getCategories = () => {
-        axios.get(`${Api}/${AllCategorie}`, {
+        setIsLoading(true);
+        axios.get(`${Api}/${AllCategorie}?page=${Page}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
         })
         .then(function (response) {
+            console.log(response.data.links)
+            setLinks(response.data.links)
             setCategories(response.data.data);
+            setIsLoading(false);
         })
         .catch(function (error) {
             console.log(error);
@@ -32,7 +40,7 @@ export default function Categorie() {
 
     useEffect(() => {
         getCategories();
-    }, [isLoading]); // Reload categories when isLoading changes
+    }, [Page]); // Reload categories when isLoading changes
 
     const handleEditCategory = (id) => {
         setIDCategorie(id);
@@ -219,13 +227,13 @@ setError(err)
     };
 
     return (
-        <section className="tab-components">
+        <section className="tab-components ">
             {isLoading && <Loading />}
             <div className="container-fluid">
-                <div className="title-wrapper pt-30">
+                <div className="title-wrapper pt-30 ">
                     <h2>Form Elements</h2>
                 </div>
-                <div className="row">
+                <div className="row mt-5">
                     <div className="col-lg-10 m-auto">
                         <div className="card-style mb-30">
                             {updateCategoryInput ? (
@@ -280,7 +288,7 @@ setError(err)
                                 </>
                             ) : (
                                 <>
-                                    <h6 className="mb-25">Add category</h6>
+                                    <h6 className="mb-25 ">Add category</h6>
                                     <div className="input-style-3">
                                         <input
                                             type="text"
@@ -361,6 +369,8 @@ setError(err)
                                 </table>
                             </div>
                         </div>
+                        <Pagination links={links}  setPage={setPage} setLoading={setIsLoading}/>
+
                     </div>
                 </div>
             </div>

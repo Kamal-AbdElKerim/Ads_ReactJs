@@ -104,10 +104,13 @@ use App\Http\Controllers\AdmindashboardController;
 
 
 
-                    Route::get('/Dashboard/Home', [AdmindashboardController::class, 'dashboard'])->name('Dashboard.Home');
-                    Route::get('/Dashboard/Users', [UserController::class, 'Users'])->name('Dashboard.Users');
-                    Route::get('/Dashboard/block_user/{id}', [UserController::class, 'block_user'])->name('block_user');
-                    Route::get('/Dashboard/Ads', [AdsController::class, 'Ads'])->name('Dashboard.Ads');
+                    Route::get('/Dashboard/Users', [UserController::class, 'Users']);
+
+                    Route::get('/Dashboard/block_user/{id}', [UserController::class, 'block_user']);
+
+
+                    Route::get('/Dashboard/Ads', [AdsController::class, 'AllAds'])->name('Dashboard.Ads');
+
                     Route::get('/Dashboard/approve/{id}', [AdsController::class, 'approve'])->name('approve');
                     Route::get('/Dashboard/reject/{id}', [AdsController::class, 'reject'])->name('reject');
     });
