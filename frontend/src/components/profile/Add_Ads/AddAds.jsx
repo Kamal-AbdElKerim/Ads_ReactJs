@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import './AddAds.css'
 import axios from "axios";
-import { Api, getAllAds, getTagsByCategory, storeAds, user } from "../../../Api/api";
+import { Api, getAllAds, storeAds, user } from "../../../Api/api";
 import Swal from 'sweetalert2'
 
 export default function AddAds() {
-      // const [title, setTitle] = useState('');
   const [NextStep1, setNextStep1] = useState(false);
   const [NextStep2, setNextStep2] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,31 +12,10 @@ export default function AddAds() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [Auth, setAuth] = useState([]);
-
-  const [cards, setCards] = useState([]);
   const [isCity, setIsCity] = useState([]);
-  const [num_ADS, setnum_ADS] = useState([]);
-  const [num_categories, setnum_categories] = useState([]);
-  const [num_users, setnum_users] = useState([]);
-  const [Tags, setTags] = useState([]);
+  const [Categories, setcategories] = useState([]);
   const [Years, setYears] = useState([]);
 
-  const getTags = ()=> {
-            axios.get(`${Api}/${getTagsByCategory}/${Category.current.value}`)
-            .then(function (response) {
-            // handle success
-            // console.log('ads',response.data);
-            setTags(response.data)
-      
-            })
-            .catch(function (error) {
-            // handle error
-            console.log(error);
-            })
-            .finally(function () {
-            // always executed
-            });
-  }
   const getAuthUser = ()=>{
         axios.get(`${Api}/${user}`,
         {
@@ -59,16 +37,13 @@ export default function AddAds() {
           // always executed
         });
   }
-  const getAds = ()=>{
+  const getData = ()=>{
         axios.get(`${Api}/${getAllAds}`)
         .then(function (response) {
           // handle success
         //   console.log(response);
-          setCards(response.data.ads)
           setIsCity(response.data.citys)
-          setnum_ADS(response.data.num_ADS)
-          setnum_categories(response.data.num_categories)
-          setnum_users(response.data.num_users)
+          setcategories(response.data.num_categories)
           setYears(response.data.years.years )
           console.log('years',response.data.years)
         })
@@ -85,7 +60,7 @@ export default function AddAds() {
 
   useEffect(() => {
     getAuthUser()
-    getAds()
+    getData()
   }, []);
 
   const someAsyncOperation = () => {
@@ -178,7 +153,7 @@ export default function AddAds() {
     }
     if (title.current.value !== "" && Category.current.value !== "") {
       setNextStep1(true);
-      getTags()
+     
     }
 
     setError(errorsObject)
@@ -229,7 +204,7 @@ export default function AddAds() {
         top: 300,
         behavior: "smooth" 
     });
-      getTags()
+    
     }
 
     setError(errorsObject)
@@ -458,7 +433,7 @@ export default function AddAds() {
                               name="Category"
                               ref={Category}
                             >
-                             {num_categories && num_categories.map(category => (
+                             {Categories && Categories.map(category => (
                                 <option key={category.id} value={category.id}>
                                     {category.Name}
                                 </option>
@@ -748,40 +723,7 @@ export default function AddAds() {
                             )}
                    
    
-                      <div className="col-12">
-                        <div className="form-group">
-                          <label className="tag-label">
-                            Tags* <span>Comma(,) separated</span>
-                          </label>
-                          <div className="row ">
-                          {Tags && Tags.map(tag => (
-                                <div key={tag.id} className="ms-2 col-6 col-md-4 col-lg-3">
-                                    <input
-                                        type="checkbox"
-                                        className="btn-check"
-                                        id={`btncheck${tag.TagName}`}
-                                        autoComplete="off"
-                                        value={tag.id}
-
-                                    />
-                                    <label
-                                        htmlFor={`btncheck${tag.TagName}`}
-                                        className="btn btn-outline-primary"
-                                        style={{ borderRadius: '30px' }}
-                                    >
-                                        {tag.TagName}
-                                    </label>
-                                </div>
-                            ))}
-
-                                                      
-                                                      
-                                                         
-                                                            {/* <div className="text-danger">@error("tags_selected") {{ $message }} @enderror</div> */}
-
-                         </div>
-                        </div>
-                      </div>
+                 
                       <div className="col-12">
                         <div className="form-group button mb-0">
                        

@@ -6,10 +6,13 @@ use App\Http\Controllers\AdsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\BusinessCardController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\AdmindashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,9 +95,23 @@ use App\Http\Controllers\DashboardUserController;
                 Route::get('/messages-list-json',[ChatController::class, 'messagesList_json'] );
 
    
+                Route::group(['middleware' => 'admin'], function () {
+                    Route::get('/Dashboard/Categorie', [CategorieController::class , 'categories']);
+                    Route::post('/Add/Categorie', [CategorieController::class , 'AddCategories']);
+                    Route::get('/Edit/Categorie/{id}', [CategorieController::class , 'EditCategories']);
+                    Route::post('/Update/Categorie/{id}', [CategorieController::class , 'UpdateCategories']);
+                    Route::get('/Delete/Categorie/{id}', [CategorieController::class , 'DeleteCategories']);
 
-});
 
-Route::group(['middleware' => 'admin'], function () {
-   
-});
+
+                    Route::get('/Dashboard/Home', [AdmindashboardController::class, 'dashboard'])->name('Dashboard.Home');
+                    Route::get('/Dashboard/Users', [UserController::class, 'Users'])->name('Dashboard.Users');
+                    Route::get('/Dashboard/block_user/{id}', [UserController::class, 'block_user'])->name('block_user');
+                    Route::get('/Dashboard/Ads', [AdsController::class, 'Ads'])->name('Dashboard.Ads');
+                    Route::get('/Dashboard/approve/{id}', [AdsController::class, 'approve'])->name('approve');
+                    Route::get('/Dashboard/reject/{id}', [AdsController::class, 'reject'])->name('reject');
+    });
+
+            });
+            
+

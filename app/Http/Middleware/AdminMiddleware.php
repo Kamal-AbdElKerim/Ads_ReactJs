@@ -15,10 +15,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user() && $request->user()->role === 'admin') {
+        if (Auth()->user() && Auth()->user()->role === 'admin') {
             return $next($request);
         }
 
-        return redirect()->route('Home')->with('error', 'Unauthorized');
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }

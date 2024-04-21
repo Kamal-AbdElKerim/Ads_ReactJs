@@ -18,4 +18,5 @@ export const Dashboard_user = "Dashboard_user" ;
 export const remove_notification = "remove_notification" ;
 export const add_Message = "add_Message" ;
 export const user_message = "user_message" ;
+export const AllCategorie = "Dashboard/Categorie" ;
  

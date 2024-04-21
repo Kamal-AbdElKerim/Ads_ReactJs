@@ -82,6 +82,7 @@ export default function Register() {
               .then(function (response) {
                 console.log(response);
                 localStorage.setItem('access_token', response.data.access_token);
+                
                 setLoading(false);
                 navigate("/home");
               })

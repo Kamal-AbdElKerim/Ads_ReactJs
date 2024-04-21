@@ -108,6 +108,7 @@ class ChatController extends Controller
                 $query->where('user_1', $toUserId)
                       ->where('user_2', $authUserId);
             })
+           
             ->first();
     
             // Create a new conversation if it does not exist

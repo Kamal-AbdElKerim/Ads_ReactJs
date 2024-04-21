@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './NavBar.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
-export default function Aside() {
+export default function Aside({Active,hiddenAside}) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if ( !localStorage.getItem('userRole')) {
+          
+          navigate('/home')
+        }
+     }, []);
   return (
     <>
-    <aside className="sidebar-nav-wrapper">
-      <div className=" d-flex  justify-content-center mb-5">
+    <aside className={`sidebar-nav-wrapper ${Active ? 'active' : ''}`}>
+      <div className=" d-flex    justify-content-evenly   mb-5">
         <a href="index.html">
           <img
             src="ADS-Logo_RGB.svg"
@@ -14,6 +22,10 @@ export default function Aside() {
             alt="Logo"
           />
         </a>
+      <button onClick={() => {hiddenAside()}}  className=" btn btn-primary ">
+                <i className="lni lni-chevron-left me-2" /> 
+              </button>
+      
       </div>
       <nav className="sidebar-nav">
         <ul>
@@ -67,7 +79,6 @@ export default function Aside() {
         </ul>
       </nav>
     </aside>
-    {/* <div className="overlay" /> */}
   </>
   
   )

@@ -192,12 +192,15 @@ export default function Messages() {
           
             {/* Start Chat List */}
             <div className="chat-list ">
-              
+              {User && 
               <div className=' d-flex align-items-center  p-2'>
                 <img className='imageProfile' src={`http://127.0.0.1:8000/images/${User && User.image}`} alt="" />
-                <h3 className="username-title ms-3  ">{User && User.name}</h3>
+                <h5 className="username-title ms-3  ">{User && User.name}</h5>
 
               </div>
+              
+              
+              }
               <hr />
 
             <ul className="single-chat-head " ref={chatListRef}>

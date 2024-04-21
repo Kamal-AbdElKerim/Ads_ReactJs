@@ -1,7 +1,9 @@
 import React from 'react'
 import './NavBar.css'
 
-export default function NavBar(hiddenAside) {
+export default function NavBar({Active,hiddenAside}) {
+
+
   return (
     <header className="header">
     <div className="container-fluid">
@@ -9,8 +11,8 @@ export default function NavBar(hiddenAside) {
         <div className="col-lg-5 col-md-5 col-6">
           <div className="header-left d-flex align-items-center">
             <div className="menu-toggle-btn mr-15">
-              <button onClick={() => {hiddenAside}} id="menu-toggle" className="main-btn primary-btn btn-hover">
-                <i className="lni lni-chevron-left me-2" /> Menu
+              <button onClick={() => {hiddenAside()}} id="menu-toggle" className={`main-btn primary-btn btn-hover  `}>
+                <i className="lni lni-chevron-right me-2" /> Menu
               </button>
             </div>
           </div>

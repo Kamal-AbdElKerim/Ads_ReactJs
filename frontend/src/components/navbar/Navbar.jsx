@@ -7,6 +7,8 @@ export default function Navbar() {
 
   const handleLogout = () => {
       localStorage.removeItem('access_token');
+      localStorage.removeItem('userRole');
+
       navigate('/login');
   };
   return (

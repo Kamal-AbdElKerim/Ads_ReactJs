@@ -59,8 +59,18 @@ export default function Login() {
               .then(function (response) {
                 // console.log(response);
                 localStorage.setItem('access_token', response.data.access_token);
-                setLoading(false);
-                navigate("/home");
+                if (response.data.user.role === 'admin') {
+                  
+                  localStorage.setItem('userRole', 'admin');
+                  setLoading(false);
+
+                  navigate("/Dashboard/Admin");
+                }else{
+                  
+                  setLoading(false);
+                  navigate("/home");
+                }
+                // console.log(response.data.user.role)
               })
               .catch(function (error) {
                 // console.log(error.response.data.errors);
