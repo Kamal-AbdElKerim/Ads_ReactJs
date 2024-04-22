@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\commentController;
 use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CategorieController;
@@ -94,6 +95,9 @@ use App\Http\Controllers\AdmindashboardController;
 
                 Route::get('/messages-list-json',[ChatController::class, 'messagesList_json'] );
 
+
+                Route::post('/storeComment',[commentController::class, 'storeComment'] );
+
    
                 Route::group(['middleware' => 'admin'], function () {
                     Route::get('/Dashboard/Categorie', [CategorieController::class , 'categories']);
@@ -112,7 +116,9 @@ use App\Http\Controllers\AdmindashboardController;
                     Route::get('/Dashboard/Ads', [AdsController::class, 'AllAds'])->name('Dashboard.Ads');
 
                     Route::get('/Dashboard/approve/{id}', [AdsController::class, 'approve'])->name('approve');
-                    Route::get('/Dashboard/reject/{id}', [AdsController::class, 'reject'])->name('reject');
+                    Route::get('/Dashboard/reject/{id}', [AdsController::class, 'reject']);
+
+                    Route::get('/Dashboard/Admin', [AdmindashboardController::class, 'dashboardAdmin']);
     });
 
             });

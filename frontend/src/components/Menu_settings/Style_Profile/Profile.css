@@ -1030,6 +1030,11 @@
     padding-top: 30px;
   } */
   
+  .imageusers{
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 20px;
+  }
   .messages-body .chat-list .single-chat-head {
     height: 309px;
     overflow-y: scroll;

@@ -1,7 +1,17 @@
 import React from 'react'
 import './NavBar.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar({Active,hiddenAside}) {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('userRole');
+
+      navigate('/login');
+  };
 
 
   return (
@@ -20,76 +30,17 @@ export default function NavBar({Active,hiddenAside}) {
         <div className="col-lg-7 col-md-7 col-6">
           <div className="header-right">
             <div className="profile-box ml-15">
-              <button
-                className="dropdown-toggle bg-transparent border-0"
-                type="button"
-                id="profile"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <div className="profile-info">
-                  <div className="info">
-                    <div className="image">
-                      <img
-                        src="{{ URL::asset('Dashboard/assets/images/profile/profile-image.png') }}"
-                        alt=""
-                      />
-                    </div>
-                    <div>
-                      <h6 className="fw-500">
-                       name
-                      </h6>
-                      <p>Admin</p>
-                    </div>
-                  </div>
-                </div>
-              </button>
-              <ul
-                className="dropdown-menu dropdown-menu-end"
-                aria-labelledby="profile"
-              >
-                <li>
-                  <div className="author-info flex items-center !p-1">
-                    <div className="image">
-                      <img
-                        src="{{ URL::asset('Dashboard/assets/images/profile/profile-image.png') }}"
-                        alt="image"
-                      />
-                    </div>
-                    <div className="content">
-                      <h4 className="text-sm">
-                       name
-                      </h4>
-                      <a
-                        className="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs"
-                        href="#"
-                      >
-                       email
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li className="divider" />
-             
-                <li>
-                  <form
-                    id="logoutForm"
-                    action="{{ route('logout') }}"
-                    method="post"
-                  >
-                  
-                    <a
-                      href="javascript:void(0)"
-                      onclick="document.getElementById('logoutForm').submit();"
-                      className="{{ Route::currentRouteName() == 'logout' ? 'active_auth' : '' }}"
-                    >
-                      <i className="lni lni-enter" /> Logout
-                    </a>
-                  </form>
-                </li>
-              
-                <li className="divider" />
-              </ul>
+            
+              <ul>
+                  {localStorage.getItem('access_token') ? (
+                            <li >
+                                
+                                <a className='btn btn-primary  p-2' href='javascript:void(0)' onClick={handleLogout}><i className="lni lni-enter"></i> Logout</a>
+
+                            </li>
+                        ) : ''}
+                 
+                  </ul>
             </div>
             {/* profile end */}
           </div>

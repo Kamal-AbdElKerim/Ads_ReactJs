@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('OwnerID')->constrained('users')->onDelete('CASCADE');
             $table->foreignId('UserID')->constrained('users')->onDelete('CASCADE');
             $table->foreignId('AdID')->constrained('ads')->onDelete('CASCADE');
-            $table->text('CommentText');
+            $table->text('CommentText')->nullable();
+            $table->integer('reating')->nullable();
             $table->timestamps();
         });
     }

@@ -16,7 +16,6 @@ export default function Messages() {
 
     const [Auth, setAuth] = useState('');
     const [User, setUser] = useState('');
-    const [RefrechChat, setRefrechChat] = useState(false); // State to track selected user ID
 
     const chatListRef = useRef(null);
 
@@ -69,12 +68,7 @@ export default function Messages() {
        
       }, []);
 
-      useEffect(() => {
-        
-        selectUser(ID)
-        
-      
-      }, [RefrechChat]);
+     
 
       useEffect(() => {
         if (chatListRef.current) {
@@ -131,10 +125,7 @@ export default function Messages() {
           });
     
           setInputMessage(''); // Clear input field
-          setRefrechChat(true)
-          setTimeout(() => {
-            setRefrechChat(false)
-          }, 100);
+          selectUser(ID)
           // Scroll to bottom of chat list after new message is added
           if (chatListRef.current) {
             chatListRef.current.scrollTop = chatListRef.current.scrollHeight;

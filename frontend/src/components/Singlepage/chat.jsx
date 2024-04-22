@@ -54,7 +54,6 @@ export default function Chat({ idAD, ownerAds }) {
 
   const sendMessage = async () => {
     try {
-        setIsLoading(true)
       const token = localStorage.getItem('access_token');
       if (!token) {
         throw new Error('No access token found');
@@ -72,8 +71,9 @@ export default function Chat({ idAD, ownerAds }) {
         },
       });
 
-      setInputMessage(''); // Clear input field
-      setIsLoading(false)
+      setInputMessage(''); 
+      fetchChatMessages()
+      
       // Scroll to bottom of chat list after new message is added
       if (chatListRef.current) {
         chatListRef.current.scrollTop = chatListRef.current.scrollHeight;
@@ -85,8 +85,7 @@ export default function Chat({ idAD, ownerAds }) {
 
   useEffect(() => {
     fetchChatMessages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ownerAds.id,isLoading]); // Fetch messages when ownerAds.id changes (dependency)
+  }, [ownerAds.id]);
 
   useEffect(() => {
     if (chatListRef.current) {
@@ -132,7 +131,8 @@ export default function Chat({ idAD, ownerAds }) {
                                 </div>
                                 </div>
                                 <p className="text">{message.message}
-                                <span className="time ">{message.formatted_created_at}</span></p>
+                                </p>
+                                <span className="time ">{message.formatted_created_at}</span>
                             </li>
 
                             ))}

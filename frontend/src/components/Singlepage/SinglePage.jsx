@@ -66,7 +66,6 @@ export default function SinglePage() {
         singleData()
     }, []);
 
-//  console.log('1111',Ads.images[0].ImageURL)
     const [currentImage, setCurrentImage] = useState('');
     const opacity = 0.6;
   
