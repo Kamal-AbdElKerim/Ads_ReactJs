@@ -123,20 +123,21 @@ class UserAuthController extends Controller
 
     public function updateProfile(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-        } else {
-            $imageName = 'profile-icon.jpg'; 
-        }
+    
 
         $id = Auth()->id();
         $user = User::findOrFail($id);
 
         $user->name = $request->input('name');
         $user->phone = $request->input('phone');
-        $user->image = $imageName;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $user->image = $imageName;
+        } 
+        
 
         $user->save();
 

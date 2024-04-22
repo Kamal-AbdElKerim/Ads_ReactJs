@@ -81,6 +81,7 @@ export default function MyAds() {
   const statuss = (status) => {
     setIsLoading(true)
     setStatus(status)
+    setPage(1)
 
     setTimeout(() => {
       setIsLoading(false)
