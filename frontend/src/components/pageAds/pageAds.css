@@ -234,3 +234,80 @@
   background: #5830E0;
   border-color: transparent;
 }
+
+
+ .author {
+  background: transparent;
+  padding: 15px 20px;
+  border-radius: 0;
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  overflow: visible;
+  width: 100%;
+  z-index: 2 !important;
+}
+
+ .author::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -5px;
+  height: 110px;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#000000e3));
+  background: linear-gradient(transparent, #cac1c1e3);
+  z-index: -1;
+  overflow: visible;
+}
+
+ .author .author-image {
+  float: left;
+}
+
+ .author .author-image a {
+  color: #081828;
+}
+
+ .author .author-image a:hover {
+  color: #5830E0;
+}
+
+ .author .author-image a:hover span {
+  color: #5830E0;
+}
+
+ .author .author-image a span {
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: 5px;
+  color: #fff;
+}
+
+ .author .author-image img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+ .author .author-image p {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+ .author .sale {
+  display: inline-block;
+  background: #5830E0;
+  color: #fff;
+  font-size: 14px;
+  float: right;
+  font-weight: 500;
+  padding: 7px 15px;
+  border-radius: 6px;
+  font-family: 'Jost',
+ sans-serif;
+}
+
+

@@ -21,6 +21,10 @@ class comment extends Model
     {
         return $this->belongsTo(user::class,'UserID');
     }
+    public function ads()
+    {
+        return $this->belongsTo(ad::class,'AdID');
+    }
 
    
 }

@@ -97,8 +97,13 @@ use App\Http\Controllers\AdmindashboardController;
 
 
                 Route::post('/storeComment',[commentController::class, 'storeComment'] );
-                
+
                 Route::post('/AddComment',[commentController::class, 'AddComment'] );
+
+                Route::get('/getComment/{id}',[commentController::class, 'getComment'] );
+
+                Route::post('/updateComment/{id}', [CommentController::class, 'update']);
+
 
    
                 Route::group(['middleware' => 'admin'], function () {

@@ -5,6 +5,7 @@ import './pageAds.css'
 import Loading from '../londing/londing';
 import Pagination from '../Pagination/Pagination'
 import { Link, useNavigate } from 'react-router-dom';
+import Rating from '../Singlepage/Rating';
 
 
 export default function PageAds() {
@@ -17,7 +18,7 @@ export default function PageAds() {
 
 
   const [ AllAds, setAds] = useState('');
-  const [ Allcategories, setCategories] = useState('');
+  const [ Allcategories, setCategories] = useState([]);
   const [ AllCity, setAllCity] = useState([]);
   const [ keyword, setkeyword] = useState('');
   const [ Category, setCategory] = useState('');
@@ -70,16 +71,18 @@ export default function PageAds() {
   }
 
 
-  const getAds = ()=>{
-    axios.get(`${Api}/${Ads}?page=${Page}&Category=${Category}&keyword=${keyword}&city=${city}&price=${price}`)
+  const getAds = async ()=>{
+   await axios.get(`${Api}/${Ads}?page=${Page}&Category=${Category}&keyword=${keyword}&city=${city}&price=${price}`)
     .then(function (response) {
     
 
-      console.log('data',response.data.ads.data)
+      console.log('data',response)
       setAds(response.data.ads.data)
     
-      setCategories(response.data.Category);
-      setLinks(response.data.ads.links);
+      const categoriesArray = Object.values(response.data.categories);
+      setCategories(categoriesArray);
+
+       setLinks(response.data.ads.links);
       setDATAPagin(response.data.ads)
 
        
@@ -349,85 +352,81 @@ const SearchParTitle = (event) => {
                       role="tabpanel"
                       aria-labelledby="nav-grid-tab"
                     >
-                      <div className="row">
-                        {AllAds.length > 0 ? AllAds.map(ads => (
-
-                        <div className="col-lg-4 col-md-6 col-12">
-                          {/* Start Single Item */}
-                          <div className="single-item-grid">
-                            <div className="image">
-                             
-                              <Link to={`/SinglePage/${ads.id}`}>
-                              <img
-                                  src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
-                                  alt="#"  className='image_io'
-                                />
-                              </Link>
-                              <i className=" cross-badge lni lni-bolt" />
-                              <span className="flat-badge sale">Sale</span>
-                            </div>
-                            <div className="content">
-                              <a href="javascript:void(0)" className="tag">
-                                {ads.categories.Name }
-                              </a>
-                              <h3 className="title">
-                              <Link to={`/SinglePage/${ads.id}`}>
-                              {ads.Title }
-                              </Link>
-                                
-                              </h3>
-                              <p className="location">
-                                <a href="javascript:void(0)">
-                                  <i className="lni lni-map-marker"></i>{ads.City }
-                                </a>
-                              </p>
-                              <ul className="info d-flex  justify-content-between ">
-                                <li className="price">{ads.Price } MAD</li>
-                                {ads.favorites.some(
-                                 (favorite) => favorite.UserID === Auth.id && favorite.AdID === ads.id
-                                     ) ? 
-                                
-                                <li  className="">
-                                <a  onClick={() =>  DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
-                                <i class="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
-                                </a>
-                                
-
-                                </li>
-                                
-                                
-                                :
-                                
-                                <li  className="">
-                                <a   onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
-                                <i class="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
-                                </a>
-                                
-
-                                </li>
-                                
-                                
-                                
-                                }
-                              
-                              </ul>
-                            </div>
-                          </div>
-                          {/* End Single Item */}
-                        </div>
-                        )) : 
-                        <div className="col-lg-12 col-md-12 col-12">
-                        {/* Start Single Item */}
-                        <div className="single-item-grid text-center ">
-                            <img src="page_not_found/notFound.png" alt="" />
-                          </div>
-                          </div>
-                        
-                        
-                        
-                        }
-                   
-                      </div>
+                     <div className="row">
+      {AllAds.length > 0 ? (
+        AllAds.map((ads) => (
+          <div className="col-lg-4 col-md-6 col-12" key={ads.id}>
+            {/* Start Single Item */}
+            <div className="single-item-grid">
+              <div className="image">
+                <Link to={`/SinglePage/${ads.id}`}>
+                  <img
+                    src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
+                    alt="#"
+                    className="image_io"
+                  />
+                </Link>
+                <div className="author ">
+                  <div className="author-image">
+                    <a href="javascript:void(0)">
+                      <img className='me-1'
+                        src={`http://127.0.0.1:8000/images/${ads.users.image}`}
+                        alt="#"
+                      />
+                      <span>{ads.users.name}</span>
+                    
+           
+                    </a>
+                  </div>
+                </div>
+                <i className="cross-badge lni lni-bolt" />
+                <span className="flat-badge sale">Sale</span>
+              </div>
+              <div className="content">
+                <a href="javascript:void(0)" className="tag">
+                  {ads.categories.Name}
+                </a>
+                <h3 className="title">
+                  <Link to={`/SinglePage/${ads.id}`}>{ads.Title}</Link>
+                </h3>
+                <p className="location">
+                  <a href="javascript:void(0)">
+                    <i className="lni lni-map-marker"></i>
+                    {ads.City}
+                  </a>
+                </p>
+                <ul className="info d-flex justify-content-between">
+                  <li className="price">{ads.Price} MAD</li>
+                  {/* Render favorite button based on whether the ad is favorited by the authenticated user */}
+                  <li>
+                    {ads.favorites.some(
+                      (favorite) =>
+                        favorite.UserID === Auth.id && favorite.AdID === ads.id
+                    ) ? (
+                      <a onClick={() => DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
+                        <i className="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
+                      </a>
+                    ) : (
+                      <a onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
+                        <i className="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
+                      </a>
+                    )}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {/* End Single Item */}
+          </div>
+        ))
+      ) : (
+        <div className="col-lg-12 col-md-12 col-12">
+          {/* Display a placeholder or message if no ads */}
+          <div className="single-item-grid text-center">
+            <img src="page_not_found/notFound.png" alt="" />
+          </div>
+        </div>
+      )}
+    </div>
                       <div className="row">
                         <div className="col-12">
                           {/* Pagination */}

@@ -127,17 +127,21 @@ export default function Home() {
 
   return (
     <div>
-      <>
+     
       {isLoading && <Loading />}
+      
   {/* Start Hero Area */}
-  <section className="hero-area style2 overlay">
+  <section className="hero-area style2  "   style={{
+        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/hero-bg2.jpg)`,
+        backgroundColor: '#081828',
+      }}>
     <div className="container">
       <div className="row align-items-center ">
         <div className="col-lg-12  col-md-12 col-12">
           <div className="hero-text wow  fadeInLeft" data-wow-delay=".3s">
             {/* Start Hero Text */}
             <div className="section-heading  ">
-              <h2>Welcome to ADS</h2>
+              <h2>Welcome to ClassiGrids</h2>
               <p>
                 Buy And Sell Everything From Used Cars To Mobile Phones And{" "}
                 <br />
@@ -147,10 +151,81 @@ export default function Home() {
             {/* End Hero Text */}
           </div>
         </div>
+        <div className="col-lg-12 col-md-12 col-12">
+          {/* Start Search Form */}
+          <div className="search-form wow fadeInUp" data-wow-delay=".7s">
+            <div className="row">
+              <div className="col-lg-4 col-md-4 col-12 p-0">
+                <div className="search-input">
+                  <label htmlFor="keyword">
+                    <i className="lni lni-search-alt theme-color" />
+                  </label>
+                  <input
+                    className="input_icone"
+                    type="text"
+                    name="keyword"
+                    id="keyword"
+                    placeholder="Product keyword"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-3 col-12 p-0">
+                <div className="search-input">
+                  <label htmlFor="category">
+                    <i className="lni lni-grid-alt theme-color" />
+                  </label>
+                  <select className="input_icone" name="category" id="category">
+                    <option value="none" selected="" disabled="">
+                      Categories
+                    </option>
+                    <option value="none">Vehicle</option>
+                    <option value="none">Electronics</option>
+                    <option value="none">Mobiles</option>
+                    <option value="none">Furniture</option>
+                    <option value="none">Fashion</option>
+                    <option value="none">Jobs</option>
+                    <option value="none">Real Estate</option>
+                    <option value="none">Animals</option>
+                    <option value="none">Education</option>
+                    <option value="none">Matrimony</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-3 col-12 p-0">
+                <div className="search-input">
+                  <label htmlFor="location">
+                    <i className="lni lni-map-marker theme-color" />
+                  </label>
+                  <select className="input_icone" name="location" id="location">
+                    <option value="none" selected="" disabled="">
+                      Locations
+                    </option>
+                    <option value="none">New York</option>
+                    <option value="none">California</option>
+                    <option value="none">Washington</option>
+                    <option value="none">Birmingham</option>
+                    <option value="none">Chicago</option>
+                    <option value="none">Phoenix</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-lg-2 col-md-2 col-12 p-0">
+                <div className="search-btn button">
+                  <button className="btn">
+                    <i className="lni lni-search-alt" /> Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* End Search Form */}
+        </div>
       </div>
     </div>
   </section>
   {/* End Hero Area */}
+
+
   {/* Start Achievement Area */}
   <section className="our-achievement section">
     <div className="container">
@@ -401,7 +476,7 @@ export default function Home() {
   </section>
   {/* End How Works Area */}
 
-</>
+
 
     </div>
   )

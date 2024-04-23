@@ -6,6 +6,8 @@ import Loading from '../londing/londing';
 import LoadingHome from '../londing/londing_Home/londingHome';
 import Chat from './chat';
 import './SinglePage.css'
+import Comments from './Comments';
+import Rating from './Rating';
 
 
 export default function SinglePage() {
@@ -13,6 +15,9 @@ export default function SinglePage() {
     const [Ads, setAds] = useState('');
     let [isLoading, setIsLoading] = useState(true);
     const [Auth, setAuth] = useState('');
+    const [sumRating, setsumRating] = useState('');
+    const [Sumcomments, setSumcomments] = useState('');
+
 
 
 
@@ -250,173 +255,31 @@ export default function SinglePage() {
                 </ul>
               </div>
               {/* End Single Block */}
-              {/* Start Single Block */}
-              <div className="single-block comments">
-                <h3>Comments</h3>
-                {/* Start Single Comment */}
-                <div className="single-comment">
-                  <img src="assets/images/testimonial/testi2.jpg" alt="#" />
-                  <div className="content">
-                    <h4>Luis Havens</h4>
-                    <span>25 Feb, 2023</span>
-                    <p>
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority have suffered alteration in some
-                      form, by injected humour, or randomised words which don't
-                      look even slightly believable.
-                    </p>
-                    <a href="javascript:void(0)" className="reply">
-                      <i className="lni lni-reply" /> Reply
-                    </a>
-                  </div>
-                </div>
-                {/* End Single Comment */}
-              </div>
-              {/* End Single Block */}
-              {/* Start Single Block */}
-              <div className="single-block comment-form">
-                <h3>Post a comment</h3>
-                <form action="#" method="POST">
-                  <div className="row">
-                    <div className="col-lg-6 col-12">
-                      <div className="form-box form-group">
-                        <input
-                          type="text"
-                          name="name"
-                          className="form-control form-control-custom"
-                          placeholder="Your Name"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6 col-12">
-                      <div className="form-box form-group">
-                        <input
-                          type="email"
-                          name="email"
-                          className="form-control form-control-custom"
-                          placeholder="Your Email"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="form-box form-group">
-                        <textarea
-                          name="#"
-                          className="form-control form-control-custom"
-                          placeholder="Your Comments"
-                          defaultValue={""}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12">
-                      <div className="button">
-                        <button type="submit" className="btn">
-                          Post Comment
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              {/* End Single Block */}
+
+          <Comments id={Ads && Ads.users.id}  setsumRating={setsumRating} setSumcomments={setSumcomments} Auth={Auth} />
+         
             </div>
             <div className="col-lg-4 col-md-5 col-12">
               <div className="item-details-sidebar">
                 {/* Start Single Block */}
                 <div className="single-block author">
-                  <h3>Author</h3>
+                  <h3>Vendor</h3>
                   <div className="content">
-                    <img src={`http://127.0.0.1:8000/${Ads && Ads.users.image}`} alt="#" />
+                    <img src={`http://127.0.0.1:8000/images/${Ads && Ads.users.image}`} alt="#" />
                     <h4>{Ads && Ads.users.name}</h4>
-                    <span>{Ads && Ads.users.created_at}</span>
+                    <div className=' d-flex '>
+                    <span><Rating value={sumRating} max={5} /></span>
+                    <span className='mt-2 ms-1'>({Sumcomments ? Sumcomments : 0})</span>
+                    </div>
+                    {/* <span>{sumRating && sumRating}</span> */}
                     {/* <a href="javascript:void(0)" className="see-all">
                       See All Ads
                     </a> */}
                   </div>
                 </div>
                 {/* End Single Block */}
-                {/* Start Single Block */}
-                <div className="single-block contant-seller comment-form ">
-                  <h3>Contact Seller</h3>
-                  <form action="#" method="POST">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="form-box form-group">
-                          <input
-                            type="text"
-                            name="name"
-                            className="form-control form-control-custom"
-                            placeholder="Your Name"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-box form-group">
-                          <input
-                            type="email"
-                            name="email"
-                            className="form-control form-control-custom"
-                            placeholder="Your Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="form-box form-group">
-                          <textarea
-                            name="#"
-                            className="form-control form-control-custom"
-                            placeholder="Your Message"
-                            defaultValue={""}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="button">
-                          <button type="submit" className="btn">
-                            Send Message
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                {/* End Single Block */}
-                {/* Start Single Block */}
-                <div className="single-block ">
-                  <h3>Location</h3>
-                  <div className="mapouter">
-                    <div className="gmap_canvas">
-                      <iframe
-                        width="100%"
-                        height={300}
-                        id="gmap_canvas"
-                        src="https://maps.google.com/maps?q=2880%20Broadway,%20New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                        frameBorder={0}
-                        scrolling="no"
-                        marginHeight={0}
-                        marginWidth={0}
-                      />
-                      <a href="https://putlocker-is.org" />
-                      <br />
-                      <style
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            "\n                                            .mapouter {\n                                                position: relative;\n                                                text-align: right;\n                                                height: 300px;\n                                                width: 100%;\n                                            }\n                                        "
-                        }}
-                      />
-                      <a href="https://www.embedgooglemap.net">
-                        google map code for website
-                      </a>
-                      <style
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            "\n                                            .gmap_canvas {\n                                                overflow: hidden;\n                                                background: none !important;\n                                                height: 300px;\n                                                width: 100%;\n                                            }\n                                        "
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                {/* End Single Block */}
+             
+              
               </div>
             </div>
           </div>

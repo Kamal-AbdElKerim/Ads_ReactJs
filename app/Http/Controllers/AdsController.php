@@ -213,45 +213,85 @@ class AdsController extends Controller
 
     public function findByFilters(Request $request)
     {
-        $query = ad::latest()->with(['favorites','categories','images']);
-        $Category = Categorie::has('ads')->with('ads')->withCount('ads')->get();
-
-
-        // Apply category filter
+        // Start with the ad query
+        $query = Ad::latest()->with(['favorites', 'categories', 'images', 'users', 'users.comments']);
+    
+        // Apply keyword filter
         if ($request->keyword) {
-
-              $query->where('Title', 'LIKE', '%'. $request->keyword. '%');
-                
+            $query->where('Title', 'LIKE', '%' . $request->keyword . '%');
         }
-
-        if($request->Category){
-
-              $query->where('CategoryID', $request->Category);
-
-        }
-  // Apply city filter
+    
+        // Apply city filter
         if ($request->city) {
             $query->where('City', $request->city);
         }
-
-        
-
+    
         // Apply price filter (range)
         if ($request->price) {
-         
             $query->where('Price', '<=', $request->price);
         }
-
-      
-
-        // Get the ads matching the filters
-        $ads = $query->paginate(3);
-
+    
+        // Apply category filter (by ID)
+        if ($request->Category) {
+            $categoryId = $request->Category;
+            $query->whereHas('categories', function ($subQuery) use ($categoryId) {
+                $subQuery->where('CategoryID', $categoryId);
+            });
+        }
+    
+        // Get the ads matching the filters and paginate the results
+        $ads = $query->paginate(6);
+    
+        // Filter categories to include only those with associated ads matching the filters
+        $categories = Categorie::whereHas('ads', function ($subQuery) use ($request) {
+            // Check for City filter
+            if ($request->city) {
+                $subQuery->where('City', $request->city);
+            }
+        
+            // Check for Price filter
+            if ($request->price) {
+                $subQuery->where('Price', '<=', $request->price);
+            }
+        
+            // Check for Keyword filter
+            if ($request->keyword) {
+                $keyword = $request->keyword;
+                $subQuery->where(function ($q) use ($keyword) {
+                    $q->where('Title', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+        })
+        ->withCount(['ads as ads_count' => function ($query) use ($request) {
+            // Apply additional filters if necessary
+            if ($request->city) {
+                $query->where('City', $request->city);
+            }
+            if ($request->price) {
+                $query->where('Price', '<=', $request->price);
+            }
+            if ($request->keyword) {
+                $keyword = $request->keyword;
+                $query->where('Title', 'LIKE', '%' . $keyword . '%');
+            }
+        }])
+        ->get();
+        
+        return response()->json([
+            'categories' => $categories,
+            'ads' => $ads,
+        ]);
+        
+        
+    
+        // Return JSON response containing the paginated ads and filtered categories
         return response()->json([
             'ads' => $ads,
-            'Category' => $Category,
+            'categories' => $categories,
         ]);
     }
+    
+
 
 
     public function approve($id)
