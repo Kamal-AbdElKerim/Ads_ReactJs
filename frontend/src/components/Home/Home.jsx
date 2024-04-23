@@ -2,9 +2,10 @@ import {React,useEffect,useState} from 'react'
 
 import './Home.css';
 import axios from 'axios';
-import { Api, favorite, getAllAds, remove_favorite, user } from '../../Api/api';
+import { Ads, Api, favorite, getAllAds, remove_favorite, user } from '../../Api/api';
 import { Link , useNavigate } from 'react-router-dom';
 import Loading from '../londing/londing';
+import Pagination from '../Pagination/Pagination';
 
 export default function Home() {
 
@@ -16,8 +17,15 @@ export default function Home() {
   const [num_users, setnum_users] = useState([]);
   const [LastAds, setLastAds] = useState('');
   const [Auth, setAuth] = useState(''); 
+  const [Page, setPage] = useState(1);
+  const [SerachAds, setSerachAds] = useState('');
+  let [links, setLinks] = useState([]) ;
+
+
+
 
   const navigate = useNavigate();
+  
   const getAuthUser = ()=>{
     axios.get(`${Api}/${user}`,
     {
@@ -40,6 +48,57 @@ export default function Home() {
     });
 }
 
+
+const [formData, setFormData] = useState({
+  keyword: '',
+  category: '',
+  location: ''
+});
+
+const { keyword, category, location } = formData;
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({
+    ...formData,
+    [name]: value
+  });
+};
+
+const handleSubmit = (e) => {
+  setIsLoading(true);
+  e.preventDefault();
+  console.log(formData)
+   axios.get(`${Api}/${Ads}?page=${Page}&Category=${formData.category}&keyword=${formData.keyword}&city=${formData.location}`)
+  .then(function (response) {
+  
+
+    console.log('data',response)
+    setSerachAds(response.data.ads.data)
+
+     setLinks(response.data.ads.links);
+
+     
+     window.scrollTo({
+       top: 1800,
+       behavior: 'smooth' // Optional: Scroll behavior ('smooth' for smooth scrolling)
+      });
+      setIsLoading(false);
+
+     
+     
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
+ 
+};
+
   const getAds = ()=>{
         axios.get(`${Api}/${getAllAds}`)
         .then(function (response) {
@@ -59,6 +118,7 @@ export default function Home() {
           // always executed
         });
   }
+
 
   const get_LastAds = ()=>{
 
@@ -132,8 +192,8 @@ export default function Home() {
       
   {/* Start Hero Area */}
   <section className="hero-area style2  "   style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/hero-bg2.jpg)`,
-        backgroundColor: '#081828',
+        // backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/hero-bg2.jpg)`,
+        backgroundColor: 'rgb(17 39 60)',
       }}>
     <div className="container">
       <div className="row align-items-center ">
@@ -154,70 +214,74 @@ export default function Home() {
         <div className="col-lg-12 col-md-12 col-12">
           {/* Start Search Form */}
           <div className="search-form wow fadeInUp" data-wow-delay=".7s">
-            <div className="row">
-              <div className="col-lg-4 col-md-4 col-12 p-0">
-                <div className="search-input">
-                  <label htmlFor="keyword">
-                    <i className="lni lni-search-alt theme-color" />
-                  </label>
-                  <input
-                    className="input_icone"
-                    type="text"
-                    name="keyword"
-                    id="keyword"
-                    placeholder="Product keyword"
-                  />
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-3 col-12 p-0">
-                <div className="search-input">
-                  <label htmlFor="category">
-                    <i className="lni lni-grid-alt theme-color" />
-                  </label>
-                  <select className="input_icone" name="category" id="category">
-                    <option value="none" selected="" disabled="">
-                      Categories
-                    </option>
-                    <option value="none">Vehicle</option>
-                    <option value="none">Electronics</option>
-                    <option value="none">Mobiles</option>
-                    <option value="none">Furniture</option>
-                    <option value="none">Fashion</option>
-                    <option value="none">Jobs</option>
-                    <option value="none">Real Estate</option>
-                    <option value="none">Animals</option>
-                    <option value="none">Education</option>
-                    <option value="none">Matrimony</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-3 col-12 p-0">
-                <div className="search-input">
-                  <label htmlFor="location">
-                    <i className="lni lni-map-marker theme-color" />
-                  </label>
-                  <select className="input_icone" name="location" id="location">
-                    <option value="none" selected="" disabled="">
-                      Locations
-                    </option>
-                    <option value="none">New York</option>
-                    <option value="none">California</option>
-                    <option value="none">Washington</option>
-                    <option value="none">Birmingham</option>
-                    <option value="none">Chicago</option>
-                    <option value="none">Phoenix</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-lg-2 col-md-2 col-12 p-0">
-                <div className="search-btn button">
-                  <button className="btn">
-                    <i className="lni lni-search-alt" /> Search
-                  </button>
-                </div>
-              </div>
+      <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-lg-4 col-md-4 col-12 p-0">
+            <div className="search-input">
+              <label htmlFor="keyword">
+                <i className="lni lni-search-alt theme-color" />
+              </label>
+              <input
+                className="input_icone"
+                type="text"
+                name="keyword"
+                id="keyword"
+                placeholder="Product keyword"
+                value={keyword}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
+          <div className="col-lg-3 col-md-3 col-12 p-0">
+            <div className="search-input">
+              <label htmlFor="category">
+                <i className="lni lni-grid-alt theme-color" />
+              </label>
+              <select
+                className="input_icone"
+                name="category"
+                id="category"
+                value={category}
+                onChange={handleInputChange}
+              >
+                <option value="">Select Categories</option>
+                {num_categories && num_categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.Name}
+                    </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="col-lg-3 col-md-3 col-12 p-0">
+            <div className="search-input">
+              <label htmlFor="location">
+                <i className="lni lni-map-marker theme-color" />
+              </label>
+              <select
+                className="input_icone"
+                name="location"
+                id="location"
+                value={location}
+                onChange={handleInputChange}
+              >
+                <option value="" >Locations</option>
+                {isCity && isCity.map((city) => (
+                      <option value={city}>{city}</option>
+                    ))} 
+              </select>
+            </div>
+          </div>
+          <div className="col-lg-2 col-md-2 col-12 p-0">
+            <div className="search-btn button">
+              <button className="btn" type="submit">
+                <i className="lni lni-search-alt" /> Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
           {/* End Search Form */}
         </div>
       </div>
@@ -324,98 +388,143 @@ export default function Home() {
         <div className="col-12">
           <div className="section-title">
             <h2 className="wow fadeInUp" data-wow-delay=".4s">
-              Latest Products
+            Search Results
             </h2>
-            <p className="wow fadeInUp" data-wow-delay=".6s">
-              Welcome to the cutting edge of innovation! Discover our newest
-              arrivals, meticulously crafted to elevate your experience. From
-              sleek gadgets to sophisticated designs.
-            </p>
+       
           </div>
         </div>
       </div>
       <div className="single-head">
       <div className="row">
-                        {LastAds.length > 0 ? LastAds.map(ads => (
-
-                        <div className="col-lg-4 col-md-6 col-12">
-                          {/* Start Single Item */}
-                          <div className="single-item-grid">
-                            <div className="image">
-                             
-                              <Link to={`/SinglePage/${ads.id}`}>
-                              <img
-                                  src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
-                                  alt="#"  className='image_io'
-                                />
-                              </Link>
-                              <i className=" cross-badge lni lni-bolt" />
-                              <span className="flat-badge sale">Sale</span>
-                            </div>
-                            <div className="content">
-                              <a href="javascript:void(0)" className="tag">
-                                {ads.categories.Name }
-                              </a>
-                              <h3 className="title">
-                              <Link to={`/SinglePage/${ads.id}`}>
-                              {ads.Title }
-                              </Link>
-                                
-                              </h3>
-                              <p className="location">
-                                <a href="javascript:void(0)">
-                                  <i className="lni lni-map-marker"></i>{ads.City }
-                                </a>
-                              </p>
-                              <ul className="info d-flex  justify-content-between ">
-                                <li className="price">{ads.Price } MAD</li>
-                                {ads.favorites.some(
-                                 (favorite) => favorite.UserID === Auth.id && favorite.AdID === ads.id
-                                     ) ? 
-                                
-                                <li  className="">
-                                <a  onClick={() =>  DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
-                                <i class="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
-                                </a>
-                                
-
-                                </li>
-                                
-                                
-                                :
-                                
-                                <li  className="">
-                                <a   onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
-                                <i class="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
-                                </a>
-                                
-
-                                </li>
-                                
-                                
-                                
-                                }
-                              
-                              </ul>
-                            </div>
-                          </div>
-                          {/* End Single Item */}
+      {SerachAds && SerachAds.length > 0 ? (
+        
+  SerachAds.map((ads) => (
+    <div key={ads.id} className="col-lg-4 col-md-6 col-12">
+      {/* Start Single Item */}
+      <div className="single-item-grid">
+        
+        <div className="image">
+          <Link to={`/SinglePage/${ads.id}`}>
+            <img
+              src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
+              alt="#"
+              className="image_io"
+            />
+          </Link>
+          <i className="cross-badge lni lni-bolt" />
+          <span className="flat-badge sale">Sale</span>
+        </div>
+        <div className="content">
+          <a href="javascript:void(0)" className="tag">
+            {ads.categories.Name}
+          </a>
+          <h3 className="title">
+            <Link to={`/SinglePage/${ads.id}`}>{ads.Title}</Link>
+          </h3>
+          <p className="location">
+            <a href="javascript:void(0)">
+              <i className="lni lni-map-marker"></i>
+              {ads.City}
+            </a>
+          </p>
+          <ul className="info d-flex justify-content-between">
+            <li className="price">{ads.Price} MAD</li>
+            {ads.favorites.some(
+              (favorite) =>
+                favorite.UserID === Auth.id && favorite.AdID === ads.id
+            ) ? (
+              <li>
+                <a onClick={() => DisiblefavouriteAds(ads.id)} href="#">
+                  <i className="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a onClick={() => favouriteAds(ads.id)} href="#">
+                  <i className="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+      <div className=" d-flex  justify-content-center mt-5 ">
                         </div>
-                        )) : 
-                        <div className="col-lg-12 col-md-12 col-12">
-                        {/* Start Single Item */}
-                        <div className="single-item-grid text-center ">
-                            <img src="page_not_found/notFound.png" alt="" />
-                          </div>
-                          </div>
-                        
-                        
-                        
-                        }
-                   
-                      </div>
+      {/* End Single Item */}
+    </div>
+  ))
+) : LastAds && LastAds.length > 0 ? (
+  LastAds.map((ads) => (
+    <div key={ads.id} className="col-lg-4 col-md-6 col-12">
+      {/* Start Single Item */}
+      <div className="single-item-grid">
+        <div className="image">
+          <Link to={`/SinglePage/${ads.id}`}>
+            <img
+              src={`http://127.0.0.1:8000/${ads.images[0].ImageURL}`}
+              alt="#"
+              className="image_io"
+            />
+          </Link>
+          <i className="cross-badge lni lni-bolt" />
+          <span className="flat-badge sale">Sale</span>
+        </div>
+        <div className="content">
+          <a href="javascript:void(0)" className="tag">
+            {ads.categories.Name}
+          </a>
+          <h3 className="title">
+            <Link to={`/SinglePage/${ads.id}`}>{ads.Title}</Link>
+          </h3>
+          <p className="location">
+            <a href="javascript:void(0)">
+              <i className="lni lni-map-marker"></i>
+              {ads.City}
+            </a>
+          </p>
+          <ul className="info d-flex justify-content-between">
+            <li className="price">{ads.Price} MAD</li>
+            {ads.favorites.some(
+              (favorite) =>
+                favorite.UserID === Auth.id && favorite.AdID === ads.id
+            ) ? (
+              <li>
+                <a onClick={() => DisiblefavouriteAds(ads.id)} href="#">
+                  <i className="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a onClick={() => favouriteAds(ads.id)} href="#">
+                  <i className="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+      {/* End Single Item */}
+    </div>
+  ))
+) : (
+  <div className="col-lg-12 col-md-12 col-12">
+    {/* Start Single Item */}
+    <div className="single-item-grid text-center">
+      <img src="page_not_found/notFound.png" alt="" />
+    </div>
+    {/* End Single Item */}
+  </div>
+)}
+
+                 
+
+  
+ 
+
+ </div>
       </div>
     </div>
+
   </section>
   {/* /End Items Grid Area */}
   {/* Start How Works Area */}

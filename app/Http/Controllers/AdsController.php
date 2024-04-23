@@ -213,7 +213,6 @@ class AdsController extends Controller
 
     public function findByFilters(Request $request)
     {
-        // Start with the ad query
         $query = Ad::latest()->with(['favorites', 'categories', 'images', 'users', 'users.comments']);
     
         // Apply keyword filter

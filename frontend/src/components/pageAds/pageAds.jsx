@@ -5,7 +5,6 @@ import './pageAds.css'
 import Loading from '../londing/londing';
 import Pagination from '../Pagination/Pagination'
 import { Link, useNavigate } from 'react-router-dom';
-import Rating from '../Singlepage/Rating';
 
 
 export default function PageAds() {
