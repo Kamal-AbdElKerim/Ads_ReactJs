@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Api, Singl_Page, user } from '../../Api/api';
 import Loading from '../londing/londing';
 import LoadingHome from '../londing/londing_Home/londingHome';
@@ -106,7 +106,7 @@ export default function SinglePage() {
           <div className="col-lg-6 col-md-6 col-12">
             <ul className="breadcrumb-nav">
               <li>
-                <a href="index.html">Home</a>
+                <Link to={'/home'}>Home</Link>
               </li>
               <li>Ad Details</li>
             </ul>

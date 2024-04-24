@@ -244,7 +244,7 @@ const handleUnderstood = () => {
         <div className="col-lg-6 col-md-12 col-12">
           {/* Start Recent Items */}
           <div className="recent-items dashboard-block">
-            <h3 className="block-title">Recent Ads</h3>
+            <h3 className="block-title">Sold Ads</h3>
             <ul>
               {ads && ads.map((ad) => (
                 <li>
@@ -258,9 +258,11 @@ const handleUnderstood = () => {
                 <Link to={`/SinglePage/${ad.id}`} className="title">{ad.Title}</Link>
 
             
-                <a href="javascript:void(0)" className="title btn  btn-primary  text-white ">
+                {/* <a href="javascript:void(0)" className="title btn  btn-primary  text-white ">
                 {ad.status}
-                </a>
+                </a> */}
+                <span class="badge rounded-pill text-bg-success">{ad.status}</span>
+
                 </div>
                 <span className="time text-success ">
                 {ad.Price} MAD

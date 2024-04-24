@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Ads, Api, favorite, getAllAds, remove_favorite, user } from '../../Api/api';
 import { Link , useNavigate } from 'react-router-dom';
 import Loading from '../londing/londing';
-import Pagination from '../Pagination/Pagination';
 
 export default function Home() {
 
@@ -51,11 +50,11 @@ export default function Home() {
 
 const [formData, setFormData] = useState({
   keyword: '',
-  category: '',
+
   location: ''
 });
 
-const { keyword, category, location } = formData;
+const { keyword, location } = formData;
 
 const handleInputChange = (e) => {
   const { name, value } = e.target;
@@ -69,7 +68,7 @@ const handleSubmit = (e) => {
   setIsLoading(true);
   e.preventDefault();
   console.log(formData)
-   axios.get(`${Api}/${Ads}?page=${Page}&Category=${formData.category}&keyword=${formData.keyword}&city=${formData.location}`)
+   axios.get(`${Api}/${Ads}?page=${Page}&keyword=${formData.keyword}&city=${formData.location}`)
   .then(function (response) {
   
 
@@ -183,7 +182,83 @@ const handleSubmit = (e) => {
     get_LastAds()
     getAds()
     getAuthUser()
-  }, [isLoading]);
+  }, []);
+
+  const handleKeyUp = (event) => {
+    // if (event.key === 'Enter') {
+      console.log(formData.keyword)
+      handleSearch(formData.keyword);
+    // }
+  };
+
+  const [searchResults, setSearchResults] = useState([]);
+
+
+  const handleSearch = async (keyword) => {
+
+    if (keyword !== '') {
+      
+   
+
+    axios.get(`${Api}/titleAds/${keyword}`)
+    .then(function (response) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false)
+   
+      }, 1000);
+      setSearchResults(response.data);
+      console.log(response.data)
+    })
+    .catch(function (error) {
+
+      console.log('Error favoriting ad:', error);
+    });
+  }else {
+    setSearchResults([])
+  }
+ 
+  };
+
+  const handleItemClick = (title) => {
+    setFormData({
+      ...formData,
+      keyword: title // Update the keyword field with the selected item's title
+    });
+    setSearchResults([])
+  };
+
+  const filterParCategorie = (id) => {
+    setIsLoading(true);
+     axios.get(`${Api}/${Ads}?page=${Page}&Category=${id}`)
+    .then(function (response) {
+    
+  
+      console.log('data',response)
+      setSerachAds(response.data.ads.data)
+  
+       setLinks(response.data.ads.links);
+  
+       
+       window.scrollTo({
+         top: 1800,
+         behavior: 'smooth' // Optional: Scroll behavior ('smooth' for smooth scrolling)
+        });
+        setIsLoading(false);
+  
+       
+       
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+
+
+  }
 
   return (
     <div>
@@ -201,9 +276,9 @@ const handleSubmit = (e) => {
           <div className="hero-text wow  fadeInLeft" data-wow-delay=".3s">
             {/* Start Hero Text */}
             <div className="section-heading  ">
-              <h2>Welcome to ClassiGrids</h2>
+              <h2>Welcome to Ads</h2>
               <p>
-                Buy And Sell Everything From Used Cars To Mobile Phones And{" "}
+                Buy And Sell Everything From Used Cars To Mobile Phones And
                 <br />
                 Computers, Or Search For Property, Jobs And More.
               </p>
@@ -215,24 +290,31 @@ const handleSubmit = (e) => {
           {/* Start Search Form */}
           <div className="search-form wow fadeInUp" data-wow-delay=".7s">
       <form onSubmit={handleSubmit}>
-        <div className="row">
+        <div className="row justify-content-center ">
           <div className="col-lg-4 col-md-4 col-12 p-0">
             <div className="search-input">
               <label htmlFor="keyword">
-                <i className="lni lni-search-alt theme-color" />
+                {/* <i className="lni lni-search-alt theme-color" /> */}
               </label>
               <input
                 className="input_icone"
                 type="text"
                 name="keyword"
                 id="keyword"
-                placeholder="Product keyword"
+                placeholder="Ads keyword"
                 value={keyword}
                 onChange={handleInputChange}
+                onKeyUp={handleKeyUp}
               />
+ 
+            <ul className='resultShow'>
+        {searchResults && searchResults.map((result) => (
+          <li  className="dropdown_1" key={result.id} onClick={() => handleItemClick(result.Title)} >{result.Title}</li>
+        ))}
+      </ul>
             </div>
           </div>
-          <div className="col-lg-3 col-md-3 col-12 p-0">
+          {/* <div className="col-lg-3 col-md-3 col-12 p-0">
             <div className="search-input">
               <label htmlFor="category">
                 <i className="lni lni-grid-alt theme-color" />
@@ -252,7 +334,7 @@ const handleSubmit = (e) => {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
           <div className="col-lg-3 col-md-3 col-12 p-0">
             <div className="search-input">
               <label htmlFor="location">
@@ -364,7 +446,7 @@ const handleSubmit = (e) => {
         <div className="row">
         {num_categories && num_categories.map((categorie, index) => (
     <div className="col-lg-2 col-md-3 col-12" key={index}>
-        <a href="category.html" className="single-cat wow fadeInUp" data-wow-delay=".1s">
+        <a onClick={() => filterParCategorie(categorie.id)} href="javascript:void(0)" className="single-cat wow fadeInUp" data-wow-delay=".1s">
             <div className="icon">
             <img src={'http://127.0.0.1:8000/' + categorie.icon} alt="#" />
             </div>
@@ -382,14 +464,30 @@ const handleSubmit = (e) => {
   </section>
   {/* /End Categories Area */}
   {/* Start Items Grid Area */}
-  <section className="items-grid section">
+  <section className="items-grid section fixF">
     <div className="container">
       <div className="row">
         <div className="col-12">
           <div className="section-title">
-            <h2 className="wow fadeInUp" data-wow-delay=".4s">
-            Search Results
-            </h2>
+         
+            {SerachAds && SerachAds.length > 0 ? (
+            <>
+               <h2 className="wow fadeInUp" data-wow-delay=".4s">
+               Search Results
+               </h2>
+           
+              </>
+              ) :
+              <>
+              <h2 className="wow fadeInUp" data-wow-delay=".4s">
+              Last Ads
+              </h2>
+                 <h4 className="wow fadeInUp" data-wow-delay=".4s">
+                 No data found
+                 <h5 className='mt-3'>see Recommend Ads </h5>
+                 </h4>
+                  </>
+            }
        
           </div>
         </div>
@@ -434,13 +532,13 @@ const handleSubmit = (e) => {
                 favorite.UserID === Auth.id && favorite.AdID === ads.id
             ) ? (
               <li>
-                <a onClick={() => DisiblefavouriteAds(ads.id)} href="#">
+                <a onClick={() =>  DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
                   <i className="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
                 </a>
               </li>
             ) : (
               <li>
-                <a onClick={() => favouriteAds(ads.id)} href="#">
+                <a onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
                   <i className="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
                 </a>
               </li>
@@ -454,6 +552,7 @@ const handleSubmit = (e) => {
     </div>
   ))
 ) : LastAds && LastAds.length > 0 ? (
+  
   LastAds.map((ads) => (
     <div key={ads.id} className="col-lg-4 col-md-6 col-12">
       {/* Start Single Item */}
@@ -489,13 +588,13 @@ const handleSubmit = (e) => {
                 favorite.UserID === Auth.id && favorite.AdID === ads.id
             ) ? (
               <li>
-                <a onClick={() => DisiblefavouriteAds(ads.id)} href="#">
+                <a onClick={() => DisiblefavouriteAds(ads.id)} href="javascript:void(0)">
                   <i className="fa-solid fa-heart-circle-check fa-2xl" style={{ color: '#c90d0d' }}></i>
                 </a>
               </li>
             ) : (
               <li>
-                <a onClick={() => favouriteAds(ads.id)} href="#">
+                <a onClick={() => favouriteAds(ads.id)} href="javascript:void(0)">
                   <i className="fa-regular fa-heart fa-2xl" style={{ color: '#c90d0d' }}></i>
                 </a>
               </li>
@@ -506,6 +605,7 @@ const handleSubmit = (e) => {
       {/* End Single Item */}
     </div>
   ))
+  
 ) : (
   <div className="col-lg-12 col-md-12 col-12">
     {/* Start Single Item */}
@@ -524,8 +624,11 @@ const handleSubmit = (e) => {
  </div>
       </div>
     </div>
-
+ 
   </section>
+  <div className=' d-flex  justify-content-center mb-3'>
+    <Link className="btn btn-outline-success px-5 py-2" to={'/pageAds'}>More Ads</Link>
+  </div>
   {/* /End Items Grid Area */}
   {/* Start How Works Area */}
   <section className="how-works section">

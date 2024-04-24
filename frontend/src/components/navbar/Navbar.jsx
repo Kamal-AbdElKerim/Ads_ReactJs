@@ -27,9 +27,13 @@ export default function Navbar() {
           <div className="col-lg-12">
             <div className="nav-inner">
               <nav className="navbar navbar-expand-lg">
-                <a className="navbar-brand" href="index.html">
-                  <img src="assets/images/logo/logo.svg" alt="Logo" />
-                </a>
+                <Link className="navbar-brand" to={'/home'}>
+                <img
+            src={`http://127.0.0.1:8000/ADS-Logo_RGB.svg`}
+            height="85px"
+            alt="Logo"
+          />
+          </Link>
                 <button
                   className="navbar-toggler mobile-menu-btn"
                   type="button"

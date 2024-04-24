@@ -28,6 +28,7 @@ class DashboardUserController extends Controller
 
         $ads = Ad::with(['images'])
             ->where('UserID', $id)
+            ->where('status', 'sold')
             ->latest('created_at')
             ->limit(4)
             ->get();

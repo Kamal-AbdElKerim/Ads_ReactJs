@@ -946,7 +946,7 @@
 .search-form .search-input input {
   width: 100%;
   background: #fff;
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0px;
   border: none;
   padding: 0 25px;
   padding-right: 45px;
@@ -1049,6 +1049,25 @@
 .how-works .single-work p {
   font-size: 16px;
   line-height: 24px;
+}
+
+.resultShow{
+  background-color: #ffffff;
+  border-radius: 0px 0px  6px 6px;
+
+}
+.dropdown_1:hover{
+  background-color: #1d1241;
+  color: #ffffff;
+}
+.dropdown_1{
+  padding: 10px;
+  border-radius: 0 20px  20px 0;
+  color: rgb(0, 0, 0);
+}
+
+.fixF {
+  padding-bottom: 20px !important;
 }
 
 

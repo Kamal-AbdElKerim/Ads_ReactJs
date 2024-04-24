@@ -17,6 +17,15 @@ class AdsController extends Controller
 
 
     
+    public function titleAds($key){
+
+
+        $Ads = ad::where('Title', 'like', "%$key%")
+        ->get();
+        return response()->json($Ads, 200);
+
+    }
+
     public function AllAds(){
 
         $Ads = ad::with(['users','categories', 'images'])->latest()->paginate(5);

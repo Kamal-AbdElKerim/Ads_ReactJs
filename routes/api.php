@@ -34,6 +34,9 @@ use App\Http\Controllers\AdmindashboardController;
 
 
     Route::get('getAllAds', [AdsController::class, 'getAllAds']);
+
+    Route::get('titleAds/{title}', [AdsController::class, 'titleAds']);
+
     Route::get('SinglPage/{id}', [AdsController::class, 'SinglPage']);
 
     Route::get('ads', [AdsController::class, 'findByFilters']);
