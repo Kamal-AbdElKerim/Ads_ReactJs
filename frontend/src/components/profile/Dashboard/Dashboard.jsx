@@ -235,6 +235,13 @@ const handleUnderstood = () => {
              </span>
            </li>
            ))}
+
+           {notifications.length == 0 && 
+            <>
+           <li className=' text-center '>no data</li>
+           {/* <hr /> */}
+           </>
+           }
              
          
             </ul>
@@ -269,7 +276,12 @@ const handleUnderstood = () => {
                 </span>
               </li>
               ))}
-          
+           {ads.length == 0 && 
+            <>
+           <li className=' text-center '>no data</li>
+           {/* <hr /> */}
+           </>
+           }
              
           
             </ul>

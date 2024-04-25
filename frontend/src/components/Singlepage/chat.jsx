@@ -105,7 +105,7 @@ export default function Chat({ idAD, ownerAds }) {
         <div className="col-lg-12 col-md-12 col-12">
           <div className="main-content">
             <div className="dashboard-block mt-0 pb-0">
-              <h3 className="block-title mb-0">Messages</h3>
+              <h3 className="block-title mb-0">ChatAds</h3>
               {/* Messages Body */}
               <div className="messages-body">
                 <div className="form-head">

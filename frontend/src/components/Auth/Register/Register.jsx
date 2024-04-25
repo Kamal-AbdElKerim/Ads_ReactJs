@@ -71,29 +71,40 @@ export default function Register() {
 
       setErrors(errorsObject);
 
-            if (Object.keys(errorsObject).length === 0) {
-              axios.post(`${Api}/${register}`, {
-                name: firstName,
-                email: email,
-                password: password,
-                phone: Phone,
-                image: Image,
-              })
-              .then(function (response) {
-                console.log(response);
-                localStorage.setItem('access_token', response.data.access_token);
-                
-                setLoading(false);
-                navigate("/home");
-              })
-              .catch(function (error) {
-                // console.log(error.response.data.errors);
-                setValidation(error.response.data.errors);
-                setLoading(false);
-              });
-
-
+      if (Object.keys(errorsObject).length === 0) {
+        // Create a new FormData object
+        const formData = new FormData();
+      
+        // Append fields to the FormData object
+        formData.append('name', firstName);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('phone', Phone);
+      
+        formData.append('image', Image);
+      console.log(Image)
+        axios.post(`${Api}/${register}`, formData)
+          .then(function (response) {
+            console.log(response);
+            localStorage.setItem('access_token', response.data.access_token);
+            setLoading(false);
+            navigate("/home");
+          })
+          .catch(function (error) {
+            // Handle error responses
+            if (error.response && error.response.data && error.response.data.errors) {
+              // Set validation errors based on the response errors
+              setValidation(error.response.data.errors);
+            } else {
+              // Handle other types of errors
+              console.error("Error:", error);
+            }
+            setLoading(false);
+          });
       }
+      
+
+      
   
   };
   
@@ -164,7 +175,7 @@ export default function Register() {
               </div>
               <div className="form-group">
                 <label>image</label>
-                <input name="image" type='file' onChange={(e) => setImage(e.target.value)}/>
+                <input name="image" type='file' onChange={(e) => setImage(e.target.files[0])}/>
                 {errors.image && (
                     
                     <div id="emailHelp" className="form-text text-danger">{errors.image}</div>

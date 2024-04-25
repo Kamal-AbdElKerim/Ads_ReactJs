@@ -42,10 +42,7 @@ class ad extends Model
         return $this->hasMany(image::class, 'AdID', 'id');
     }
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'ad_tags', 'AdID', 'TagID');
-    }
+
 
     public function favorites()
     {

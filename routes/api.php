@@ -46,7 +46,8 @@ use App\Http\Controllers\AdmindashboardController;
 
     Route::get('Citys', [CityController::class, 'index']);
 
-    
+    Route::get('/getComment/{id}',[commentController::class, 'getComment'] );
+
     
     Route::get('getTagsByCategory/{category}', [TagsController::class, 'getTagsByCategory']);
     
@@ -103,7 +104,6 @@ use App\Http\Controllers\AdmindashboardController;
 
                 Route::post('/AddComment',[commentController::class, 'AddComment'] );
 
-                Route::get('/getComment/{id}',[commentController::class, 'getComment'] );
 
                 Route::post('/updateComment/{id}', [CommentController::class, 'update']);
 

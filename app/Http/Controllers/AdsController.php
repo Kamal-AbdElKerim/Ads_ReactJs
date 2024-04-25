@@ -128,7 +128,7 @@ class AdsController extends Controller
 
     public function SinglPage($id){
 
-        $ad = ad::with(['categories', 'users', 'images', 'tags'])->findOrFail($id);
+        $ad = ad::with(['categories', 'users', 'images'])->findOrFail($id);
 
         return response()->json(['ad' => $ad], 200);
 
@@ -169,16 +169,14 @@ class AdsController extends Controller
         $ad->Puissance = $request->input('Puissance');
         $ad->TypeCar = $request->input('TypeCar');
         $ad->Model = $request->input('Model');
-        $ad->UserID = Auth::id(); // Use Auth::id() to get the authenticated user's ID
+        $ad->UserID = Auth::id(); 
         $ad->Price = $request->input('price');
         $ad->TypePrice = $request->input('Type_price');
         $ad->City = $request->input('City');
         $ad->Location = $request->input('Location');
     
-        // Save the ad to the database
         $ad->save();
     
-        // Retrieve the ID of the last inserted ad
         $lastInsertedId = $ad->id;
     
         // Add Notification
@@ -202,13 +200,11 @@ class AdsController extends Controller
                 $image->save();
             }
     
-            // return response()->json(['message' => 'Images uploaded successfully'], 200);
         } else {
             return response()->json(['errors' => 'No photos found in the request'], 400);
         }
         
     
-        // Optionally, handle tags_selected (if using tags)
     
         // Return success response
         return response()->json([
@@ -222,7 +218,7 @@ class AdsController extends Controller
 
     public function findByFilters(Request $request)
     {
-        $query = Ad::latest()->with(['favorites', 'categories', 'images', 'users', 'users.comments']);
+        $query = Ad::latest()->with(['favorites', 'categories', 'images', 'users', 'users.comments'])->where('status','approved');
     
         // Apply keyword filter
         if ($request->keyword) {
@@ -252,6 +248,9 @@ class AdsController extends Controller
     
         // Filter categories to include only those with associated ads matching the filters
         $categories = Categorie::whereHas('ads', function ($subQuery) use ($request) {
+
+           
+
             // Check for City filter
             if ($request->city) {
                 $subQuery->where('City', $request->city);
@@ -282,6 +281,8 @@ class AdsController extends Controller
                 $keyword = $request->keyword;
                 $query->where('Title', 'LIKE', '%' . $keyword . '%');
             }
+
+            $query->where('status', 'approved');
         }])
         ->get();
         
@@ -363,7 +364,7 @@ public function reject($id)
         return response()->json([
             'success' => true,
             'message' => 'Ad rejected successfully.',
-            'ad' => $ad, // Optionally return the updated ad
+            'ad' => $ad, 
         ]);
 
     } catch (\Exception $e) {

@@ -23,8 +23,8 @@ export default function PageAds() {
   const [ Category, setCategory] = useState('');
   const searchQuery = useRef()
   const [ city, setcity] = useState('');
-  const [priceValue, setPriceValue] = useState(7000); 
-  const [price, setPrice] = useState(7000); 
+  const [priceValue, setPriceValue] = useState(100000); 
+  const [price, setPrice] = useState(100000); 
   const [Auth, setAuth] = useState(''); 
 
 
@@ -71,6 +71,7 @@ export default function PageAds() {
 
 
   const getAds = async ()=>{
+    console.log(price)
    await axios.get(`${Api}/${Ads}?page=${Page}&Category=${Category}&keyword=${keyword}&city=${city}&price=${price}`)
     .then(function (response) {
     
@@ -286,7 +287,7 @@ const SearchParTitle = (event) => {
                   name="range"
                   step={1}
                   min={50}
-                  max={7000}
+                  max={100000}
                   value={priceValue}
                   onChange={handlePriceChange}
                 />

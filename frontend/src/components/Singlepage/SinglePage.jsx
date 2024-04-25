@@ -169,7 +169,7 @@ export default function SinglePage() {
                         <span>Call &amp; Get more info</span>
                       </a>
                     </li>
-                    {Ads && Ads.UserID !== Auth.id && 
+                    {Ads && Ads.UserID !== Auth.id && Auth &&
                     
                     
                     <li>
@@ -236,25 +236,7 @@ export default function SinglePage() {
              
               </div>
               {/* End Single Block */}
-              {/* Start Single Block */}
-              <div className="single-block tags">
-                <h3>Tags</h3>
-                <ul>
-                  <li>
-                    <a href="javascript:void(0)">Bike</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">Services</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">Brand</a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)">Popular</a>
-                  </li>
-                </ul>
-              </div>
-              {/* End Single Block */}
+          
 
           <Comments id={Ads && Ads.users.id}  setsumRating={setsumRating} setSumcomments={setSumcomments} Auth={Auth} />
          

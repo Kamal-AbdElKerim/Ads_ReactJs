@@ -149,6 +149,9 @@ const handleSubmit = (e) => {
         setIsLoading(false)
    
       }, 1000);
+      get_LastAds()
+      getAds()
+      getAuthUser()
       console.log('Ad favorited successfully!', response);
     })
     .catch(function (error) {
@@ -171,6 +174,9 @@ const handleSubmit = (e) => {
    
       }, 1000);
       console.log('Ad favorited successfully!', response);
+      get_LastAds()
+      getAds()
+      getAuthUser()
     })
     .catch(function (error) {
 
@@ -202,11 +208,11 @@ const handleSubmit = (e) => {
 
     axios.get(`${Api}/titleAds/${keyword}`)
     .then(function (response) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false)
+      // setIsLoading(true);
+      // setTimeout(() => {
+      //   setIsLoading(false)
    
-      }, 1000);
+      // }, 1000);
       setSearchResults(response.data);
       console.log(response.data)
     })
@@ -242,7 +248,7 @@ const handleSubmit = (e) => {
        
        window.scrollTo({
          top: 1800,
-         behavior: 'smooth' // Optional: Scroll behavior ('smooth' for smooth scrolling)
+         behavior: 'smooth' 
         });
         setIsLoading(false);
   
@@ -305,11 +311,12 @@ const handleSubmit = (e) => {
                 value={keyword}
                 onChange={handleInputChange}
                 onKeyUp={handleKeyUp}
+                autocomplete="off" 
               />
  
             <ul className='resultShow'>
         {searchResults && searchResults.map((result) => (
-          <li  className="dropdown_1" key={result.id} onClick={() => handleItemClick(result.Title)} >{result.Title}</li>
+          <li  className="dropdown_1" key={result.id} onClick={() => handleItemClick(result.Title)} ><i class="fa-solid fa-magnifying-glass me-2"></i> {result.Title}</li>
         ))}
       </ul>
             </div>

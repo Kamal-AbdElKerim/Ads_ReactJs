@@ -155,7 +155,7 @@ export default function MyAds() {
 
     let timerInterval;
     Swal.fire({
-      title: "Auto close alert!",
+      title: "Please Wait",
       html: "I will close in <b></b> milliseconds.",
       timer: 2000,
       timerProgressBar: true,
@@ -446,7 +446,7 @@ export default function MyAds() {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Modal title
+                Select the user who purchased a product from you
               </h1>
               <button
                 type="button"
