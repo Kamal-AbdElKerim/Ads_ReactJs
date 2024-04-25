@@ -8,7 +8,7 @@ const Pagination = ({ links , setPage ,setLoading}) => {
 
 
     const PaginationPage = (link)=>{
-        setLoading(true)
+        // setLoading(true)
         const url = new URL(link);
 
         const page = url.searchParams.get('page');
@@ -16,9 +16,9 @@ const Pagination = ({ links , setPage ,setLoading}) => {
         // console.log(page);
         setPage(page)
         window.scrollTo({ top: 300, behavior: 'smooth' });
-        setTimeout(() => {
-            setLoading(false);
-        }, 800);
+        // setTimeout(() => {
+        //     setLoading(false);
+        // }, 800);
     
     }
 

@@ -113,7 +113,7 @@ export default function Comments({ id, setsumRating, setSumcomments, Auth }) {
                 )}
               </div>
               <span><Rating value={Commen.reating} max={5} /></span>
-              <span style={{ width: '50px' }} className="badge rounded-pill bg-warning text-dark">
+              <span  className="badge rounded-pill bg-warning text-dark ms-2">
                 {Commen.ads.Title}
               </span>
               <p style={{ wordWrap: 'break-word' }}>{Commen.CommentText}</p>

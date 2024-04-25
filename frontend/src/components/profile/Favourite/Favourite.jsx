@@ -66,18 +66,7 @@ export default function Favourite() {
     <div className="main-content">
       <div className="dashboard-block mt-0">
         <h3 className="block-title">My Favorites</h3>
-        <nav className="list-nav">
-          <ul>
-            <li className="active">
-              <a href="javascript:void(0)">
-               
-                <span>
-                 55
-                </span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+     
         {/* Start Items Area */}
         <div className="my-items">
           {/* Start List Title */}

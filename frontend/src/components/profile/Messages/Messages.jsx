@@ -142,7 +142,7 @@ export default function Messages() {
       <div className="col-lg-9 col-md-8 col-12">
   <div className="main-content">
     <div className="dashboard-block mt-0 pb-0">
-      <h3 className="block-title mb-0">Messages</h3>
+      <h3 className="block-title mb-0">ChatAds</h3>
       {/* Start Messages Body */}
       <div className="messages-body">
         {/* <div className="form-head">
