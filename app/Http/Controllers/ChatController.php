@@ -53,7 +53,7 @@ class ChatController extends Controller
         $query->where('from_id', $user_id)
               ->where('to_id', $authUserId);
     })
-    ->orderBy('created_at', 'asc') // Optional: Order messages by creation time
+    ->orderBy('created_at', 'asc') 
     ->get();
 
     // Format created_at timestamps
@@ -75,13 +75,11 @@ class ChatController extends Controller
 
     public function addMessage(Request $request)
     {
-        // Validate incoming request data
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer', // Ensure user_id is required and is an integer
-            'message' => 'required|string', // Ensure message is required and is a string
+            'user_id' => 'required|integer', 
+            'message' => 'required|string', 
         ]);
     
-        // Check if validation fails
         if ($validator->fails()) {
             return Response::json(['error' => $validator->errors()->first()], 400);
         }
@@ -123,10 +121,8 @@ class ChatController extends Controller
                 ]);
             }
         }
-            // Return success response with chat message data
             return Response::json(['message' => 'Message Sent Successfully', 'chat_message' => $chatMessage], 200);
         } else {
-            // Return error response if message creation fails
             return Response::json(['error' => 'Failed to send message'], 500);
         }
     }

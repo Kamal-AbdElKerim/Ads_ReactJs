@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import img from './send.svg';
 import './Messages.css';
 import Loading from '../../londing/londing';
+import { Link } from 'react-router-dom';
 
 export default function Messages() {
     const [ListChat, setListChat] = useState('');
@@ -12,6 +13,7 @@ export default function Messages() {
     const [inputMessage, setInputMessage] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [ID, setID] = useState('');
+    const [Ads, setAds] = useState('');
 
 
     const [Auth, setAuth] = useState('');
@@ -78,9 +80,10 @@ export default function Messages() {
 
    
 
-      const selectUser = async (id) => {
+      const selectUser = async (id , Ads) => {
         setID(id)
-    
+        setAds(Ads)
+
         
         try {
             const token = localStorage.getItem('access_token');
@@ -163,11 +166,11 @@ export default function Messages() {
                 {ListChat && ListChat.map((ListCha) => (
             <li key={ListCha.user1.id}
             className={ListCha.user1.id === ID ? 'userHover ' : ''}>
-                    <a onClick={() => {selectUser(ListCha.user1.id !== Auth.id ? ListCha.user1.id : ListCha.user2.id)}} href="javascript:void(0)">
+                    <a onClick={() => {selectUser(ListCha.user1.id !== Auth.id ? ListCha.user1.id : ListCha.user2.id , ListCha.ads)}} href="javascript:void(0)">
                     <div className="image">
                         <img src={`http://127.0.0.1:8000/images/${ListCha.user1.id !== Auth.id ? ListCha.user1.image : ListCha.user2.image}`} alt="#" />
                     </div>
-                    <span className="username">{ListCha.user1.id !== Auth.id ? ListCha.user1.name : ListCha.user2.name}</span>
+                  <span className="username">{ListCha.user1.id !== Auth.id ? ListCha.user1.name : ListCha.user2.name}</span>
                     <span className="short-message"><i class="fa-solid fa-phone me-1"></i> 0{ListCha.user1.id !== Auth.id ? ListCha.user1.phone : ListCha.user2.phone}</span>
                     <span className="unseen-message">{ListCha.ads.Title}</span>
                     </a>
@@ -183,10 +186,14 @@ export default function Messages() {
           
             {/* Start Chat List */}
             <div className="chat-list ">
-              {User && 
-              <div className=' d-flex align-items-center  p-2'>
+              {User && Ads && 
+              <div className=' d-flex  justify-content-start    p-2'>
                 <img className='imageProfile' src={`http://127.0.0.1:8000/images/${User && User.image}`} alt="" />
-                <h5 className="username-title ms-3  ">{User && User.name}</h5>
+                <div className=' text-start ms-2'>
+                <h6 className="username-title  mb-2 ">{User && User.name}</h6>
+                <Link  className='badge text-bg-primary p-2 '  to={`/SinglePage/${Ads.id}`}>{Ads.Title}</Link>  
+                </div>
+                                    
 
               </div>
               

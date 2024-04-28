@@ -124,7 +124,7 @@ export default function SinglePage() {
               <div className="product-images">
               <main id="gallery">
       <div className="main-img">
-        <img height={'350px'} src={currentImage ? currentImage : `http://127.0.0.1:8000/${Ads && Ads.images[0].ImageURL}`} id="current" alt="#" />
+        <img height={'450px'} src={currentImage ? currentImage : `http://127.0.0.1:8000/${Ads && Ads.images[0].ImageURL}`} id="current" alt="#" />
       </div>
       <div className="images">
         {console.log('image',Ads.images)}

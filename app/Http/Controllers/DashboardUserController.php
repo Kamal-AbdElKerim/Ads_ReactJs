@@ -53,12 +53,10 @@ class DashboardUserController extends Controller
             return response()->json( 'Notification not found.');
         }
  
-        // Check if the authenticated user owns the notification
         if (auth()->user()->id !== $notification->user_id) {
             return response()->json('error', 'You are not authorized to remove this notification.');
         }
  
-        // Delete the notification
         $notification->delete();
  
         return response()->json();

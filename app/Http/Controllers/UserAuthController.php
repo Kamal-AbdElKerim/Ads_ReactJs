@@ -152,12 +152,10 @@ class UserAuthController extends Controller
         $id = Auth()->id();
         $user = User::findOrFail($id);
   
-    // Check if the current password provided matches the user's current password
     if (!Hash::check($request->currentPassword, $user->password)) {
         return response()->json(['error' => 'Current password is incorrect'], 401);
     }
 
-    // If current password is correct, update the user's password
     $user->update([
         'password' => Hash::make($request->newPassword)
     ]);

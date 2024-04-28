@@ -5,6 +5,7 @@ import './pageAds.css'
 import Loading from '../londing/londing';
 import Pagination from '../Pagination/Pagination'
 import { Link, useNavigate } from 'react-router-dom';
+import LoadingHome from '../londing/londing_Home/londingHome';
 
 
 export default function PageAds() {
@@ -200,7 +201,7 @@ const SearchParTitle = (event) => {
 
   return (
     <>
-    {isLoading && <Loading />}
+    {isLoading && <LoadingHome />}
     
     {/* Start Breadcrumbs */}
     <div className="breadcrumbs">

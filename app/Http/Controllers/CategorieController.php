@@ -45,7 +45,6 @@ class CategorieController extends Controller
 
     public function UpdateCategories(Request $request, $id)
 {
-    // Validate incoming request data
     $validator = Validator::make($request->all(), [
         'CategoryName' => 'required',
     ]);

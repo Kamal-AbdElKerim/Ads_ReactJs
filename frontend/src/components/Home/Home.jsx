@@ -391,7 +391,7 @@ const handleSubmit = (e) => {
               </span>
               +
             </h3>
-            <p>Regular Ads</p>
+            <p>Ads</p>
           </div>
         </div>
         <div className="col-lg-3 col-md-3 col-12">
@@ -413,7 +413,7 @@ const handleSubmit = (e) => {
               </span>
               +
             </h3>
-            <p>Reguler Members</p>
+            <p>Users Members</p>
           </div>
         </div>
         <div className="col-lg-3 col-md-3 col-12">

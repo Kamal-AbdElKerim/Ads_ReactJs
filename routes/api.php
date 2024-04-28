@@ -49,7 +49,6 @@ use App\Http\Controllers\AdmindashboardController;
     Route::get('/getComment/{id}',[commentController::class, 'getComment'] );
 
     
-    Route::get('getTagsByCategory/{category}', [TagsController::class, 'getTagsByCategory']);
     
     Route::middleware('auth:sanctum')->group(function () {
         

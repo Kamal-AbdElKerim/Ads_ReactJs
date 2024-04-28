@@ -243,13 +243,11 @@ class AdsController extends Controller
             });
         }
     
-        // Get the ads matching the filters and paginate the results
         $ads = $query->paginate(6);
     
-        // Filter categories to include only those with associated ads matching the filters
         $categories = Categorie::whereHas('ads', function ($subQuery) use ($request) {
 
-           
+            $subQuery->where('status', 'approved');
 
             // Check for City filter
             if ($request->city) {
@@ -293,7 +291,6 @@ class AdsController extends Controller
         
         
     
-        // Return JSON response containing the paginated ads and filtered categories
         return response()->json([
             'ads' => $ads,
             'categories' => $categories,
@@ -328,7 +325,7 @@ class AdsController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Ad approved successfully.',
-            'ad' => $ad, // Optionally return the updated ad
+            'ad' => $ad, 
         ]);
 
     } catch (\Exception $e) {
