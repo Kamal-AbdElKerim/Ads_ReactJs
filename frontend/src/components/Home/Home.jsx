@@ -311,7 +311,7 @@ const handleSubmit = (e) => {
                 value={keyword}
                 onChange={handleInputChange}
                 onKeyUp={handleKeyUp}
-                autocomplete="off" 
+                autoComplete="off" 
               />
  
             <ul className='resultShow'>
