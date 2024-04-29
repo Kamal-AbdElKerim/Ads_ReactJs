@@ -47,12 +47,13 @@ export default function Register() {
           setLoading(false);
       }
       if (Phone.trim() === '') {
-          errorsObject.Phone = 'Phone is required';
-          setLoading(false);
-      }else if (Phone.length <= 9){
-        errorsObject.Phone = 'Phone min length 10';
-          setLoading(false);
-      }
+        errorsObject.Phone = 'Phone is required';
+        setLoading(false);
+    } else if (!/^\+212\d{9}$/.test(Phone)) {
+        errorsObject.Phone = 'Please enter a valid phone number starting with +212 and followed by 9 digits';
+        setLoading(false);
+    } 
+    
 
       if (email.trim() === '') {
           errorsObject.email = 'Email is required';
@@ -166,7 +167,7 @@ export default function Register() {
               </div>
               <div className="form-group">
                 <label>Phone</label>
-                <input name="Phone" type='number' onChange={(e) => setPhone(e.target.value)}/>
+                <input name="Phone" type='text' onChange={(e) => setPhone(e.target.value)}/>
                 {errors.Phone && (
                     
                     <div id="emailHelp" className="form-text text-danger">{errors.Phone}</div>

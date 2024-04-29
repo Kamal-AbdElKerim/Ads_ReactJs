@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Loading from '../../londing/londing';
 import { Api, user } from '../../../Api/api';
+import Swal from 'sweetalert2'
+
 
 export default function EditProfile() {
   const [auth, setAuth] = useState({});
@@ -11,7 +13,7 @@ export default function EditProfile() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
-  const imageRef = useRef(null); // Create a ref for the file input
+  const imageRef = useRef(null); 
   const [passwordSuccess, setPasswordSuccess] = useState('');
 
 
@@ -30,7 +32,7 @@ export default function EditProfile() {
     })
     .then((response) => {
       setAuth(response.data);
-      setUsername(response.data.name); // Assuming Name is the username
+      setUsername(response.data.name); 
       setPhone(response.data.phone);
       setIsLoading(false);
     })
@@ -47,7 +49,7 @@ export default function EditProfile() {
     formData.append('name', username);
     formData.append('phone', phone);
     if (imageRef.current && imageRef.current.files.length > 0) {
-      formData.append('image', imageRef.current.files[0]); // Append selected file to formData
+      formData.append('image', imageRef.current.files[0]); 
     }
 
     axios.post(`${Api}/user/profile`, formData, {
@@ -59,10 +61,20 @@ export default function EditProfile() {
     .then((response) => {
       console.log('Profile updated successfully:', response.data);
       setIsLoading(false)
-      // Optionally, update the auth state or show a success message
+      Swal.fire({
+        title: "Good job!",
+        text: "Profile updated successfully",
+        icon: "success"
+      });
     })
     .catch((error) => {
       console.error('Error updating profile:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
     });
   };
 
@@ -76,7 +88,6 @@ export default function EditProfile() {
       return;
     }
 
-    // Make API call to change password
     try {
       setIsLoading(true);
       const response = await axios.put(

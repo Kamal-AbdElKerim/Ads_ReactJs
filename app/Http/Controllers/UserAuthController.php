@@ -16,7 +16,7 @@ class UserAuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|min:8',
-            'phone' => 'required|string|max:255|unique:users',
+            'phone' => 'required|max:255|unique:users',
         ]);
     
         if ($validator->fails()) {
