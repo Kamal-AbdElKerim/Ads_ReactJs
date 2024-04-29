@@ -2,31 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ad;
-use App\Models\User;
-use App\Models\categorie;
+use App\Repositories\DashboardRepository;
 use Illuminate\Http\Request;
 
 class AdmindashboardController extends Controller
 {
+    protected $dashboardRepository;
+
+    public function __construct(DashboardRepository $dashboardRepository)
+    {
+        $this->dashboardRepository = $dashboardRepository;
+    }
+
     public function dashboardAdmin()
-{
-    $users = User::where('id', '!=', Auth()->id())->count();
-    $ads = ad::count();
-    $ads_sold = ad::where('status', 'sold')->count();
-    $categories = categorie::count();
+    {
+        $data = $this->dashboardRepository->getDashboardData();
 
-    $data = [
-        'users' => $users,
-        'ads' => $ads,
-        'ads_sold' => $ads_sold,
-        'categories' => $categories,
-    ];
-
-    return response()->json([
-        'success' => true,
-        'data' => $data,
-    ]);
-}
-
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ]);
+    }
 }

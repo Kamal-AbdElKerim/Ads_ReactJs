@@ -2,54 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\favorite;
+use App\Repositories\FavoriteRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class favoriteController extends Controller
+class FavoriteController extends Controller
 {
-    public function favorite($id_ads){
+    protected $favoriteRepository;
 
-        $id_user = Auth()->id();
+    public function __construct(FavoriteRepository $favoriteRepository)
+    {
+        $this->favoriteRepository = $favoriteRepository;
+    }
 
-        $favorite =new favorite();
-        $favorite->UserID = $id_user;
-        $favorite->AdID = $id_ads;
-        $favorite->save();
-
+    public function favorite($id_ads)
+    {
+        $userId = Auth::id();
+        $this->favoriteRepository->favorite($userId, $id_ads);
         return response()->json('Ad added to favorites', 200);
-
-
     }
 
     public function remove_favorite($id)
     {
-        $favorite = favorite::where('AdID', $id)
-            ->where('UserID', Auth::id())
-            ->first();
-
-        if ($favorite) {
-            $favorite->delete();
-
-            return response()->json('Ad added to favorites', 200);
-        } else {
-            return response()->json('Ad is not in your favorites', 200);
-
-        }
-
-      
+        $userId = Auth::id();
+        $this->favoriteRepository->remove_favorite($userId, $id);
+        return response()->json('Ad removed from favorites', 200);
     }
 
     public function list_favorite()
     {
         $userId = Auth::id();
-
-        $favorites = favorite::where('UserID', $userId)
-        ->with(['ads.categories', 'ads.images'])
-
-        ->paginate(4);
-
+        $favorites = $this->favoriteRepository->list_favorite($userId);
         return response()->json($favorites, 200);
-       
     }
 }

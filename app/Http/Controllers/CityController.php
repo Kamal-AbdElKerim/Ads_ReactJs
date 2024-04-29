@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CityRepository;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
-    public function index(){
+    protected $cityRepository;
 
-        $citys = json_decode(file_get_contents(public_path('json/city.json')), true);
-        return $citys;
+    public function __construct(CityRepository $cityRepository)
+    {
+        $this->cityRepository = $cityRepository;
+    }
 
+    public function index()
+    {
+        $cities = $this->cityRepository->getCities();
+        return $cities;
     }
 }
+    
