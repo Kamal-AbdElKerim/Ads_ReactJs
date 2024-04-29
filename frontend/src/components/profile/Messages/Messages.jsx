@@ -52,13 +52,10 @@ export default function Messages() {
             },
           })
           .then(function (response) {
-            // Handle success - Assuming response.data contains the chat messages
-            // console.log('Auth:', response);
+          
             setAuth(response.data)
-            // setChatMessages(response.data); // Update state with fetched messages
           })
           .catch(function (error) {
-            // Handle error
             console.error('Error fetching chat messages:', error);
           });
       }
@@ -127,8 +124,9 @@ export default function Messages() {
             },
           });
     
-          setInputMessage(''); // Clear input field
-          selectUser(ID)
+          setInputMessage(''); 
+          selectUser(ID ,Ads)
+
           // Scroll to bottom of chat list after new message is added
           if (chatListRef.current) {
             chatListRef.current.scrollTop = chatListRef.current.scrollHeight;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './NavBar.css'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import Logo from './ADS-Logo_RGB.svg'
 
 export default function Aside({Active,hiddenAside}) {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Aside({Active,hiddenAside}) {
       <div className=" d-flex    justify-content-evenly   mb-5">
         <a href="index.html">
           <img
-            src="ADS-Logo_RGB.svg"
+            src={Logo}
             height="85px"
             alt="Logo"
           />

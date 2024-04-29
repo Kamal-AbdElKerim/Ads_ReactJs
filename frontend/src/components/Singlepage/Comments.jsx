@@ -31,10 +31,9 @@ export default function Comments({ id, setsumRating, setSumcomments, Auth }) {
       })
       .then(function (response) {
         // handle success
-        console.log('mydata', response);
         setComment(response.data.formattedComments);
         setsumRating(response.data.sumRating);
-        setSumcomments(response.data.Sumcomments);
+        setSumcomments(response.data.sumComments);
       })
       .catch(function (error) {
         // handle error
@@ -76,6 +75,13 @@ export default function Comments({ id, setsumRating, setSumcomments, Auth }) {
         // Optionally, you can refresh the comments after updating
         Comments();
         setUpdateComment(true); // Switch back to display mode after updating
+
+        Swal.fire({
+          title: "Good job!",
+          text: "Comment updated successfully",
+          icon: "success"
+        });
+
       })
       .catch(function (error) {
         // Handle error

@@ -127,7 +127,6 @@ export default function SinglePage() {
         <img height={'450px'} src={currentImage ? currentImage : `http://127.0.0.1:8000/${Ads && Ads.images[0].ImageURL}`} id="current" alt="#" />
       </div>
       <div className="images">
-        {console.log('image',Ads.images)}
       {Ads && Ads.images.map((img) => (
 
           <img
