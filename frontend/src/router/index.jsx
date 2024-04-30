@@ -18,12 +18,13 @@ import Categorie from "../components/Dashboard_Admin/Categorie/Categorie";
 import DashboardAdmin from "../components/Dashboard_Admin/Dashboard/Dashboard";
 import Users from "../components/Dashboard_Admin/Users/Users";
 import ListAds from "../components/Dashboard_Admin/ListAds/ListAds";
+import PageNotFound from "../components/PageNotFound/PageNotFound";
 
 
 export const router = createBrowserRouter([
     {
        
-        element: <Layout />,
+        element: <Layout  />,
         children: [
             {
                 path: "/home",
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
           
             {
                 path: "*",
-                element: <h1>no data</h1>,
+                element: <PageNotFound />,
             },
         ]
         

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 29 avr. 2024 à 15:43
+-- Généré le : mar. 30 avr. 2024 à 16:16
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -60,39 +60,10 @@ INSERT INTO `ads` (`id`, `Title`, `Description`, `CategoryID`, `Condition`, `Pui
 (7, 'watches  men', 'watches for men', 8, 'New', 'undefined', 'undefined', 'undefined', 5, 700.00, 'Dollar', 'El Jadida', 'jadida saa', 'sold', '2024-04-25 07:59:16', '2024-04-25 10:21:15'),
 (8, 'watches  women', 'watches for women', 8, 'New', 'undefined', 'undefined', 'undefined', 3, 1000.00, 'Dollar', 'El Jadida', 'jadiad', 'approved', '2024-04-25 08:01:19', '2024-04-25 08:02:10'),
 (9, 'fashion nova men', 'fashion nova men fashion nova men', 4, 'Used', 'undefined', 'undefined', 'undefined', 3, 150.00, 'Dollar', 'Safi', 'safi al matar', 'sold', '2024-04-25 08:22:59', '2024-04-25 09:59:38'),
-(10, 'Excepturi repudianda', 'Cupiditate officia r', 11, 'Used', 'undefined', 'undefined', 'undefined', 3, 849.00, 'Rupee', 'Casablanca', 'm', 'approved', '2024-04-25 09:49:01', '2024-04-25 12:03:22'),
+(10, 'Excepturi repudianda', 'Cupiditate officia r', 11, 'Used', 'undefined', 'undefined', 'undefined', 3, 849.00, 'Rupee', 'Casablanca', 'm', 'sold', '2024-04-25 09:49:01', '2024-04-29 20:51:46'),
 (11, 'iPhone 15 Pro', 'iPhone 15 Pro', 2, 'New', 'undefined', 'undefined', 'undefined', 6, 9000.00, 'Dollar', 'Agadir', 'agadir', 'approved', '2024-04-25 11:58:21', '2024-04-25 12:03:15'),
-(12, 'Tempor beatae dolore', 'In ut voluptatibus q', 13, 'Used', 'undefined', 'undefined', 'undefined', 6, 23.00, 'Euro', 'Casablanca', 'islammmmmmmmm', 'pending', '2024-04-28 12:11:19', '2024-04-28 12:11:19'),
+(12, 'Tempor beatae dolore', 'In ut voluptatibus q', 13, 'Used', 'undefined', 'undefined', 'undefined', 6, 23.00, 'Euro', 'Casablanca', 'islammmmmmmmm', 'sold', '2024-04-28 12:11:19', '2024-04-29 17:26:02'),
 (13, 'Dolores fugiat non', 'Hic autem dolore do', 1, 'Used', '8 CV', 'Essence', '2000', 7, 989.00, 'Dollar', 'Casablanca', 'kjhgfd', 'sold', '2024-04-29 07:18:23', '2024-04-29 07:20:12');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `ad_tags`
---
-
-CREATE TABLE `ad_tags` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `AdID` bigint(20) UNSIGNED NOT NULL,
-  `TagID` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `ad_views`
---
-
-CREATE TABLE `ad_views` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `AdID` bigint(20) UNSIGNED NOT NULL,
-  `ViewerID` bigint(20) UNSIGNED NOT NULL,
-  `ViewDate` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -125,7 +96,7 @@ INSERT INTO `categories` (`id`, `Name`, `icon`, `created_at`, `updated_at`) VALU
 (10, 'Real Estate', 'public/photos/real-estate.svg', '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
 (11, 'Education', 'public/photos/education.svg', '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
 (12, 'Matrimony', 'public/photos/matrimony.svg', '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(13, 'mvc', 'public/photos/alghQzDv8zcCPWPrL1xdL6haI6lkrHVGP8SWWQ11.jpg', '2024-04-28 11:59:40', '2024-04-28 12:01:17');
+(13, 'good', 'public/photos/nFHblMtjrXXzJQzNSZjZVsToM9qMJyfAZBkiqBFm.jpg', '2024-04-28 11:59:40', '2024-04-29 17:19:26');
 
 -- --------------------------------------------------------
 
@@ -155,7 +126,14 @@ INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `opened`, `created_at`
 (6, 6, 5, 'hello', 0, '2024-04-28 11:16:02', '2024-04-28 11:16:02'),
 (7, 6, 5, 'im user', 0, '2024-04-28 11:16:12', '2024-04-28 11:16:12'),
 (8, 7, 3, 'hi', 0, '2024-04-28 22:48:03', '2024-04-28 22:48:03'),
-(9, 7, 6, 'hi', 0, '2024-04-29 07:13:29', '2024-04-29 07:13:29');
+(9, 7, 6, 'hi', 0, '2024-04-29 07:13:29', '2024-04-29 07:13:29'),
+(10, 3, 6, 'r', 0, '2024-04-29 17:55:11', '2024-04-29 17:55:11'),
+(11, 3, 7, 'ed', 0, '2024-04-29 17:55:39', '2024-04-29 17:55:39'),
+(12, 3, 7, '\'r', 0, '2024-04-29 17:55:50', '2024-04-29 17:55:50'),
+(13, 3, 7, 'ref', 0, '2024-04-29 17:55:59', '2024-04-29 17:55:59'),
+(14, 3, 6, 'fgg', 0, '2024-04-29 17:56:15', '2024-04-29 17:56:15'),
+(15, 3, 7, 'fv', 0, '2024-04-29 17:56:30', '2024-04-29 17:56:30'),
+(16, 3, 7, 'er', 0, '2024-04-29 18:01:15', '2024-04-29 18:01:15');
 
 -- --------------------------------------------------------
 
@@ -179,11 +157,14 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `OwnerID`, `UserID`, `AdID`, `CommentText`, `reating`, `created_at`, `updated_at`) VALUES
-(1, 3, 6, 9, 'Cooll', 4, '2024-04-25 09:59:34', '2024-04-25 10:06:25'),
+(1, 3, 6, 9, 'bad', 3, '2024-04-25 09:59:34', '2024-04-29 20:55:03'),
 (2, 6, 3, 11, NULL, NULL, '2024-04-25 19:24:59', '2024-04-25 19:24:59'),
 (3, 6, 3, 11, NULL, NULL, '2024-04-25 19:25:08', '2024-04-25 19:25:08'),
 (4, 6, 3, 11, NULL, NULL, '2024-04-25 19:25:17', '2024-04-25 19:25:17'),
-(5, 7, 6, 13, NULL, NULL, '2024-04-29 07:20:07', '2024-04-29 07:20:07');
+(5, 7, 6, 13, NULL, NULL, '2024-04-29 07:20:07', '2024-04-29 07:20:07'),
+(6, 6, 5, 12, 'goodd', 4, '2024-04-29 17:25:59', '2024-04-29 17:27:36'),
+(7, 3, 7, 10, NULL, NULL, '2024-04-29 20:51:39', '2024-04-29 20:51:39'),
+(8, 3, 6, 10, 'ggg', 5, '2024-04-29 20:51:43', '2024-04-29 20:53:11');
 
 -- --------------------------------------------------------
 
@@ -246,12 +227,14 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`id`, `UserID`, `AdID`, `created_at`, `updated_at`) VALUES
 (3, 3, 4, '2024-04-24 13:02:46', '2024-04-24 13:02:46'),
-(6, 3, 7, '2024-04-25 08:58:53', '2024-04-25 08:58:53'),
 (8, 5, 6, '2024-04-25 10:23:52', '2024-04-25 10:23:52'),
 (9, 6, 11, '2024-04-25 20:41:53', '2024-04-25 20:41:53'),
 (10, 6, 8, '2024-04-25 20:44:57', '2024-04-25 20:44:57'),
 (11, 6, 2, '2024-04-28 11:04:41', '2024-04-28 11:04:41'),
-(16, 7, 10, '2024-04-28 22:47:16', '2024-04-28 22:47:16');
+(16, 7, 10, '2024-04-28 22:47:16', '2024-04-28 22:47:16'),
+(20, 3, 8, '2024-04-29 17:07:50', '2024-04-29 17:07:50'),
+(21, 5, 5, '2024-04-29 17:33:27', '2024-04-29 17:33:27'),
+(22, 5, 11, '2024-04-29 17:33:49', '2024-04-29 17:33:49');
 
 -- --------------------------------------------------------
 
@@ -396,19 +379,17 @@ INSERT INTO `notifications` (`id`, `user_id`, `type`, `message`, `is_read`, `cre
 (16, 3, 'info', 'Your ad has been saved. You must wait for the admin to accept your Ad.', 0, '2024-04-25 08:22:59', '2024-04-25 08:22:59'),
 (17, 3, 'info', 'Your ad has been displayed.', 0, '2024-04-25 08:23:09', '2024-04-25 08:23:09'),
 (18, 3, 'info', 'Your ad has been saved. You must wait for the admin to accept your Ad.', 0, '2024-04-25 09:49:01', '2024-04-25 09:49:01'),
-(20, 3, 'info', 'Your ad (fashion nova men) has been deleted.', 0, '2024-04-25 09:59:38', '2024-04-25 09:59:38'),
 (21, 5, 'info', 'Your ad (watches  men) has been deleted.', 0, '2024-04-25 10:21:15', '2024-04-25 10:21:15'),
 (22, 6, 'info', 'Your ad has been saved. You must wait for the admin to accept your Ad.', 0, '2024-04-25 11:58:21', '2024-04-25 11:58:21'),
 (23, 6, 'info', 'Your ad has been displayed.', 0, '2024-04-25 12:03:15', '2024-04-25 12:03:15'),
 (24, 3, 'info', 'Your ad has been displayed.', 0, '2024-04-25 12:03:22', '2024-04-25 12:03:22'),
-(25, 3, 'info', 'Now you can add reating and Comment.', 2, '2024-04-25 19:24:59', '2024-04-25 19:24:59'),
-(26, 3, 'info', 'Now you can add reating and Comment.', 3, '2024-04-25 19:25:08', '2024-04-25 19:25:08'),
-(27, 3, 'info', 'Now you can add reating and Comment.', 4, '2024-04-25 19:25:17', '2024-04-25 19:25:17'),
 (28, 6, 'info', 'Your ad has been saved. You must wait for the admin to accept your Ad.', 0, '2024-04-28 12:11:19', '2024-04-28 12:11:19'),
 (29, 7, 'info', 'Your ad has been saved. You must wait for the admin to accept your Ad.', 0, '2024-04-29 07:18:23', '2024-04-29 07:18:23'),
 (30, 7, 'info', 'Your ad (Dolores fugiat non) has been updated.', 0, '2024-04-29 07:18:42', '2024-04-29 07:18:42'),
 (31, 6, 'info', 'Now you can add reating and Comment.', 5, '2024-04-29 07:20:07', '2024-04-29 07:20:07'),
-(32, 7, 'info', 'Your ad (Dolores fugiat non) has been deleted.', 0, '2024-04-29 07:20:12', '2024-04-29 07:20:12');
+(34, 6, 'info', 'Your ad (Tempor beatae dolore) has been deleted.', 0, '2024-04-29 17:26:02', '2024-04-29 17:26:02'),
+(35, 7, 'info', 'Now you can add rating and comment.', 7, '2024-04-29 20:51:39', '2024-04-29 20:51:39'),
+(37, 3, 'info', 'Your ad (Excepturi repudianda) has been deleted.', 0, '2024-04-29 20:51:46', '2024-04-29 20:51:46');
 
 -- --------------------------------------------------------
 
@@ -462,131 +443,17 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (14, 'App\\Models\\User', 5, 'Rim-AuthToken', '6f660897cbf07f52d3acc24bd101abf72f81698e2253f57cfce7e48d137f5f78', '[\"*\"]', '2024-04-25 11:55:37', NULL, '2024-04-25 10:09:02', '2024-04-25 11:55:37'),
 (15, 'App\\Models\\User', 1, 'admin-AuthToken', '5e56b82afdfdaf3ce3eb74aea2cb7906fee424f857962fdcae881f843e9c0f0c', '[\"*\"]', '2024-04-25 12:04:15', NULL, '2024-04-25 12:03:08', '2024-04-25 12:04:15'),
 (16, 'App\\Models\\User', 1, 'admin-AuthToken', '1deb863416421452aa7c4019e109828a93869af64a24f9f6f8b2f4a19b91dd60', '[\"*\"]', '2024-04-28 12:02:37', NULL, '2024-04-28 11:58:49', '2024-04-28 12:02:37'),
-(17, 'App\\Models\\User', 7, 'Dolor reiciendis con-AuthToken', '09fb4be7384413b24678a12a055b0877ba06fbe0648e83f508989feb36e453fa', '[\"*\"]', '2024-04-29 07:56:46', NULL, '2024-04-28 21:18:05', '2024-04-29 07:56:46');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `tags`
---
-
-CREATE TABLE `tags` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `TagName` varchar(100) NOT NULL,
-  `CategoryID` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `tags`
---
-
-INSERT INTO `tags` (`id`, `TagName`, `CategoryID`, `created_at`, `updated_at`) VALUES
-(1, 'Cars', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(2, 'Trucks', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(3, 'Motorcycles', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(4, 'Vans', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(5, 'SUVs', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(6, 'Bicycles', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(7, 'Boats', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(8, 'RVs', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(9, 'Aircraft', 1, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(10, 'Computers', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(11, 'Smartphones', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(12, 'Tablets', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(13, 'Laptops', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(14, 'TVs', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(15, 'Cameras', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(16, 'Audio Equipment', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(17, 'Gaming Consoles', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(18, 'Wearable Tech', 2, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(19, 'Skincare', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(20, 'Makeup', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(21, 'Haircare', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(22, 'Perfumes', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(23, 'Personal Care', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(24, 'Supplements', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(25, 'Health Devices', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(26, 'Spa & Massage', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(27, 'Dental Care', 5, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(28, 'Smartwatches', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(29, 'Fitness Trackers', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(30, 'Headphones', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(31, 'Speakers', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(32, 'Laptops', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(33, 'Tablets', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(34, 'VR Headsets', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(35, 'Smart Home Devices', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(36, 'Camera Drones', 6, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(37, 'Travel Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(38, 'Laptop Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(39, 'School Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(40, 'Hiking Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(41, 'Fashion Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(42, 'Camera Backpacks', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(43, 'Hydration Packs', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(44, 'Diaper Bags', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(45, 'Backpack Accessories', 7, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(46, 'Analog Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(47, 'Digital Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(48, 'Smartwatches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(49, 'Luxury Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(50, 'Sports Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(51, 'Fashion Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(52, 'Kids Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(53, 'Fitness Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(54, 'Pocket Watches', 8, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(55, 'Sofas', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(56, 'Chairs', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(57, 'Tables', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(58, 'Beds', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(59, 'Desks', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(60, 'Wardrobes', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(61, 'Cabinets', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(62, 'Outdoor Furniture', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(63, 'Home Decor', 3, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(64, 'Clothing', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(65, 'Shoes', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(66, 'Accessories', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(67, 'Bags', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(68, 'Jewelry', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(69, 'Watches', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(70, 'Beauty Products', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(71, 'Sunglasses', 4, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(72, 'Full-time', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(73, 'Part-time', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(74, 'Freelance', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(75, 'Internships', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(76, 'Remote', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(77, 'Contract', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(78, 'Temporary', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(79, 'Volunteer', 9, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(80, 'Apartments', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(81, 'Houses', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(82, 'Condos', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(83, 'Land', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(84, 'Commercial Properties', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(85, 'Rooms for Rent', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(86, 'Vacation Rentals', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(87, 'Property Management', 10, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(88, 'Schools', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(89, 'Colleges', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(90, 'Courses', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(91, 'Tutoring', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(92, 'Online Learning', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(93, 'Workshops', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(94, 'Certifications', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(95, 'Scholarships', 11, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(96, 'Brides', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(97, 'Grooms', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(98, 'Matrimonial Services', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(99, 'Matchmaking', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(100, 'Wedding Planners', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(101, 'Bridal Wear', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(102, 'Groom Wear', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(103, 'Wedding Venues', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15'),
-(104, 'Honeymoon Packages', 12, '2024-04-24 11:55:15', '2024-04-24 11:55:15');
+(17, 'App\\Models\\User', 7, 'Dolor reiciendis con-AuthToken', '09fb4be7384413b24678a12a055b0877ba06fbe0648e83f508989feb36e453fa', '[\"*\"]', '2024-04-29 16:34:09', NULL, '2024-04-28 21:18:05', '2024-04-29 16:34:09'),
+(18, 'App\\Models\\User', 1, 'admin-AuthToken', '91d3e0c010c56ab6c8c79c3eded2f452e95f89dba679acfb0e83d07b0c39b1b3', '[\"*\"]', '2024-04-29 17:02:18', NULL, '2024-04-29 16:59:55', '2024-04-29 17:02:18'),
+(19, 'App\\Models\\User', 3, 'kamal-AuthToken', 'c75782092759134003894feb68fa6d75b999a4174f4917b5962a17e3e3c2898e', '[\"*\"]', '2024-04-29 17:14:37', NULL, '2024-04-29 17:07:09', '2024-04-29 17:14:37'),
+(20, 'App\\Models\\User', 1, 'admin-AuthToken', '8a192bfc43668fd08509ee70127ce3d1256e2d8c2fb33780b0c872cc72dbca9c', '[\"*\"]', '2024-04-29 17:19:47', NULL, '2024-04-29 17:16:01', '2024-04-29 17:19:47'),
+(21, 'App\\Models\\User', 3, 'kamal-AuthToken', 'aa02852750fb1658650ec1778ae19b2aabf29e22b1f70dc3e1271827ee8ce293', '[\"*\"]', '2024-04-29 17:24:20', NULL, '2024-04-29 17:23:54', '2024-04-29 17:24:20'),
+(22, 'App\\Models\\User', 6, 'karim-AuthToken', '1c4d64897cd10edf91f69e744e03eb4ddcf63c420365e86b269a272de870dcfd', '[\"*\"]', '2024-04-29 17:26:04', NULL, '2024-04-29 17:24:36', '2024-04-29 17:26:04'),
+(23, 'App\\Models\\User', 5, 'Rim-AuthToken', '9df0e85bda6945d16b9a055dc1e909056dacc9a501a333c4c45b5e1156364247', '[\"*\"]', '2024-04-29 17:47:52', NULL, '2024-04-29 17:26:16', '2024-04-29 17:47:52'),
+(24, 'App\\Models\\User', 1, 'admin-AuthToken', '167a435d582e1846e6b403526a080389d45520435ca8a84b2e5b9449412763b2', '[\"*\"]', '2024-04-29 17:49:45', NULL, '2024-04-29 17:48:05', '2024-04-29 17:49:45'),
+(25, 'App\\Models\\User', 1, 'admin-AuthToken', 'a579415d8d0f23fe298436e0116d006c1dae13cb00b6b85d07e1a891ed6e1cc1', '[\"*\"]', '2024-04-29 17:53:58', NULL, '2024-04-29 17:50:56', '2024-04-29 17:53:58'),
+(26, 'App\\Models\\User', 3, 'kamal-AuthToken', 'ba03de0129cf2852c17e71fdb849a26ff0bdd5e70f8fc0f08536938af36d9d32', '[\"*\"]', '2024-04-29 20:51:48', NULL, '2024-04-29 17:54:25', '2024-04-29 20:51:48'),
+(27, 'App\\Models\\User', 6, 'karim-AuthToken', '483946ab977e945de6d67e939dfdc7d91628198abd841383d6a7455ac1bfa6ed', '[\"*\"]', '2024-04-30 13:12:30', NULL, '2024-04-29 20:52:02', '2024-04-30 13:12:30');
 
 -- --------------------------------------------------------
 
@@ -620,8 +487,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `Status`, `role`, `email_ve
 (3, 'kamal', 'kamal@gmail.com', 6674714653, 1, 'user', NULL, '$2y$10$5g4gsJjywhzNABxLipJuWOg4FQY3E279VlWoK9vUbkLxbst/aloMq', NULL, '2024-04-24 11:56:49', '2024-04-24 12:05:29', NULL, '1713963929.jpg'),
 (4, 'islam', 'islam@gmail.com', 7669474632, 1, 'user', NULL, '$2y$10$kcnxkWZJG4KvoR7GU.ALX.ULmFA8k/s0LbuQM/OcwMwka1OEKkCQa', NULL, '2024-04-24 12:09:41', '2024-04-24 12:09:41', NULL, 'profile-icon.jpg'),
 (5, 'Rim', 'Rim@gmail.com', 2634159873, 1, 'user', NULL, '$2y$10$vziSRjxlImrTacPGpyeTzemZLp8M6F4oZVwDGv/sipswyK5eSF50i', NULL, '2024-04-24 12:16:05', '2024-04-24 12:16:05', NULL, 'profile-icon.jpg'),
-(6, 'karim', 'karim@gmail.com', 36251478000, 1, 'user', NULL, '$2y$10$27vkBGB.k2vuTsGFfaq92.fGMgPhuKOSOZH1M9v0alc0N6//z5hTq', NULL, '2024-04-24 12:21:59', '2024-04-28 12:18:20', NULL, '1713964919.jpg'),
-(7, 'Dolor reiciendis con', 'rynymoxi@mailinator.com', 212669474623, 1, 'user', NULL, '$2y$10$qMt3cvMuOMZckv9DDMejEOw0qUVp3ETnFyrCx/AfNpeUcdetK7VEC', NULL, '2024-04-28 21:18:05', '2024-04-28 22:41:10', NULL, '1714342685.jpeg');
+(6, 'karim', 'karim@gmail.com', 36251478000, 1, 'user', NULL, '$2y$10$27vkBGB.k2vuTsGFfaq92.fGMgPhuKOSOZH1M9v0alc0N6//z5hTq', NULL, '2024-04-24 12:21:59', '2024-04-29 17:02:09', NULL, '1713964919.jpg'),
+(7, 'Dolor reiciendis con', 'rynymoxi@mailinator.com', 212669474623, 1, 'user', NULL, '$2y$10$qMt3cvMuOMZckv9DDMejEOw0qUVp3ETnFyrCx/AfNpeUcdetK7VEC', NULL, '2024-04-28 21:18:05', '2024-04-29 17:02:13', NULL, '1714342685.jpeg');
 
 --
 -- Index pour les tables déchargées
@@ -634,22 +501,6 @@ ALTER TABLE `ads`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ads_categoryid_foreign` (`CategoryID`),
   ADD KEY `ads_userid_foreign` (`UserID`);
-
---
--- Index pour la table `ad_tags`
---
-ALTER TABLE `ad_tags`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `ad_tags_adid_foreign` (`AdID`),
-  ADD KEY `ad_tags_tagid_foreign` (`TagID`);
-
---
--- Index pour la table `ad_views`
---
-ALTER TABLE `ad_views`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `ad_views_adid_foreign` (`AdID`),
-  ADD KEY `ad_views_viewerid_foreign` (`ViewerID`);
 
 --
 -- Index pour la table `categories`
@@ -733,13 +584,6 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Index pour la table `tags`
---
-ALTER TABLE `tags`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tags_categoryid_foreign` (`CategoryID`);
-
---
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -757,34 +601,22 @@ ALTER TABLE `ads`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT pour la table `ad_tags`
---
-ALTER TABLE `ad_tags`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `ad_views`
---
-ALTER TABLE `ad_views`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `conversations`
@@ -802,7 +634,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT pour la table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `images`
@@ -820,19 +652,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT pour la table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pour la table `tags`
---
-ALTER TABLE `tags`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -850,20 +676,6 @@ ALTER TABLE `users`
 ALTER TABLE `ads`
   ADD CONSTRAINT `ads_categoryid_foreign` FOREIGN KEY (`CategoryID`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `ads_userid_foreign` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `ad_tags`
---
-ALTER TABLE `ad_tags`
-  ADD CONSTRAINT `ad_tags_adid_foreign` FOREIGN KEY (`AdID`) REFERENCES `ads` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `ad_tags_tagid_foreign` FOREIGN KEY (`TagID`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `ad_views`
---
-ALTER TABLE `ad_views`
-  ADD CONSTRAINT `ad_views_adid_foreign` FOREIGN KEY (`AdID`) REFERENCES `ads` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `ad_views_viewerid_foreign` FOREIGN KEY (`ViewerID`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `chats`
@@ -906,12 +718,6 @@ ALTER TABLE `images`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `tags`
---
-ALTER TABLE `tags`
-  ADD CONSTRAINT `tags_categoryid_foreign` FOREIGN KEY (`CategoryID`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
